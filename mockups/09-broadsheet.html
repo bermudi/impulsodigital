@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impulso Digital — Broadsheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css">
+<style>
+/* 09 — BROADSHEET
+   A designed newspaper front page. Strict 12-col grid,
+   hairline rules, zero radius, dense. Discipline = design. */
+:root {
+  --paper: #f4f1ea;
+  --ink: #11100e;
+  --ink-dim: #555049;
+  --ink-muted: #8a847a;
+  --rule: #11100e;
+  --rule-soft: #c9c3b6;
+  --accent: #b2241f;
+  --maxw: 1280px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--paper); color: var(--ink); font-family: 'Inter', system-ui, sans-serif; font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+
+/* Masthead */
+.masthead { border-bottom: 3px double var(--rule); padding: 1.2rem 1.5rem 0.8rem; }
+.masthead-inner { max-width: var(--maxw); margin: 0 auto; display: grid; grid-template-columns: 1fr auto 1fr; align-items: end; gap: 1rem; }
+.mast-left, .mast-right { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted); }
+.mast-right { text-align: right; }
+.mast-title { font-family: 'Playfair Display', serif; font-weight: 900; font-size: clamp(2rem, 5vw, 3.4rem); letter-spacing: -0.02em; line-height: 1; text-align: center; }
+.mast-title em { font-style: italic; font-weight: 400; }
+.mast-nav { max-width: var(--maxw); margin: 0.8rem auto 0; display: flex; justify-content: center; gap: 2rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.1em; border-top: 1px solid var(--rule-soft); padding-top: 0.6rem; }
+.mast-nav a { text-decoration: none; color: var(--ink-dim); }
+.mast-nav a:hover { color: var(--accent); }
+.mast-nav .nav-cta { color: var(--accent); font-weight: 500; }
+
+/* Grid system */
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 1.5rem; }
+.grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 0; }
+.col-12 { grid-column: span 12; }
+.col-8 { grid-column: span 8; }
+.col-7 { grid-column: span 7; }
+.col-6 { grid-column: span 6; }
+.col-5 { grid-column: span 5; }
+.col-4 { grid-column: span 4; }
+.col-3 { grid-column: span 3; }
+
+.rule-top { border-top: 1px solid var(--rule); }
+.rule-top-soft { border-top: 1px solid var(--rule-soft); }
+.rule-bottom { border-bottom: 1px solid var(--rule); }
+.rule-bottom-soft { border-bottom: 1px solid var(--rule-soft); }
+.pad { padding: 1.5rem 0; }
+.pad-y { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+.pad-section { padding: 4rem 0; }
+.gutter { padding-right: 1.5rem; }
+.gutter-l { padding-left: 1.5rem; }
+
+/* Hero — front-page lead story */
+.hero { padding: 2.5rem 0 3rem; border-bottom: 1px solid var(--rule); }
+.hero-kicker { font-family: 'IBM Plex Mono', monospace; font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent); margin-bottom: 1rem; }
+.hero-kicker .dot { display: inline-block; width: 7px; height: 7px; background: var(--accent); border-radius: 50%; margin-right: 0.5rem; vertical-align: middle; animation: pulse 2.4s ease infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+.hero-headline { font-family: 'Playfair Display', serif; font-weight: 900; font-size: clamp(3rem, 8vw, 6.5rem); line-height: 0.92; letter-spacing: -0.03em; margin-bottom: 1.5rem; }
+.hero-headline em { font-style: italic; font-weight: 400; color: var(--accent); }
+.hero-lede { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.3rem; line-height: 1.45; color: var(--ink-dim); max-width: 620px; margin-bottom: 2rem; }
+.hero-meta { display: flex; gap: 2rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-muted); margin-bottom: 2rem; }
+.hero-cta { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.8rem 1.4rem; background: var(--ink); color: var(--paper); text-decoration: none; transition: background 0.2s ease; }
+.hero-cta:hover { background: var(--accent); }
+
+/* Section headers — newspaper section flags */
+.section-flag { font-family: 'IBM Plex Mono', monospace; font-size: 0.74rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.16em; color: var(--accent); padding: 0.8rem 0; border-top: 2px solid var(--ink); border-bottom: 1px solid var(--rule-soft); margin-bottom: 1.5rem; display: flex; justify-content: space-between; }
+.section-flag .page { color: var(--ink-muted); }
+
+/* Work — classified ads / dispatches */
+.work-row { display: grid; grid-template-columns: 40px 1fr; gap: 1.2rem; padding: 1.3rem 0; border-bottom: 1px solid var(--rule-soft); text-decoration: none; color: inherit; transition: background 0.15s ease; }
+.work-row:hover { background: rgba(178,36,31,0.05); }
+.work-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; color: var(--ink-muted); padding-top: 0.3rem; }
+.work-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.5rem; line-height: 1.1; margin-bottom: 0.3rem; }
+.work-title .live { font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); vertical-align: middle; margin-left: 0.6rem; }
+.work-title .archived { font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-muted); vertical-align: middle; margin-left: 0.6rem; }
+.work-desc { font-size: 0.92rem; color: var(--ink-dim); line-height: 1.5; }
+.work-meta { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-muted); margin-top: 0.4rem; }
+.work-cta-row { border: 1px solid var(--ink); padding: 1.3rem; margin-top: 1rem; text-decoration: none; color: inherit; display: block; }
+.work-cta-row .work-title { color: var(--accent); }
+
+/* Services — sidebar index */
+.svc-item { padding: 1.2rem 0; border-bottom: 1px solid var(--rule-soft); }
+.svc-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--accent); margin-bottom: 0.4rem; }
+.svc-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.15rem; line-height: 1.15; margin-bottom: 0.3rem; }
+.svc-desc { font-size: 0.88rem; color: var(--ink-dim); line-height: 1.5; }
+
+/* Tools — small classified boxes */
+.tool-box { padding: 1.2rem; border: 1px solid var(--rule-soft); }
+.tool-box + .tool-box { border-top: none; }
+.tool-kicker { font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 0.5rem; }
+.tool-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.05rem; margin-bottom: 0.3rem; }
+.tool-desc { font-size: 0.84rem; color: var(--ink-dim); line-height: 1.45; }
+
+/* Pull quote / contact */
+.contact-block { padding: 4rem 0; border-top: 3px double var(--rule); border-bottom: 3px double var(--rule); text-align: center; }
+.contact-quote { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400; font-size: clamp(2rem, 5vw, 3.6rem); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+.contact-quote em { font-style: italic; color: var(--accent); font-weight: 700; }
+.contact-sub { font-size: 1.05rem; color: var(--ink-dim); margin-bottom: 2rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+
+/* Footer — colophon */
+.colophon { padding: 1.5rem 0; font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.colophon a { text-decoration: none; }
+.colophon-links { display: flex; gap: 1.2rem; }
+.colophon-links a:hover { color: var(--accent); }
+
+.mockup-badge { position: fixed; top: 16px; right: 16px; z-index: 100; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); background: var(--paper); border: 1px solid var(--ink); padding: 0.35rem 0.7rem; }
+
+@media (max-width: 860px) {
+  .col-8, .col-7, .col-6, .col-5, .col-4, .col-3 { grid-column: span 12; }
+  .gutter, .gutter-l { padding-right: 0; padding-left: 0; }
+  .mast-nav { gap: 1rem; flex-wrap: wrap; }
+}
+@media (prefers-reduced-motion: reduce) { .hero-kicker .dot { animation: none !important; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<div class="mockup-badge">09 · broadsheet</div>
+
+<div class="masthead">
+  <div class="masthead-inner">
+    <div class="mast-left">No. 001 · Querétaro Edition</div>
+    <div class="mast-title">Impulso <em>Digital</em></div>
+    <div class="mast-right">Martes 14 de julio, 2026</div>
+  </div>
+  <nav class="mast-nav">
+    <a href="#trabajo">Trabajo</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#herramientas">Herramientas</a>
+    <a href="#contacto" class="nav-cta">→ Hablemos</a>
+  </nav>
+</div>
+
+<div class="wrap">
+
+  <!-- HERO: lead story -->
+  <section class="hero">
+    <div class="grid">
+      <div class="col-8 gutter">
+        <div class="hero-kicker"><span class="dot"></span> Edición en vivo · Desde Querétaro</div>
+        <h1 class="hero-headline">Sitios y sistemas que <em>trabajan por ti</em>.</h1>
+        <p class="hero-lede">No diseñamos bonito que no sirve. Construimos webs que traen clientes y herramientas que se comen lo aburrido de tu día — y lo demostramos con trabajo en vivo, no promesas.</p>
+        <div class="hero-meta">
+          <span>3 sitios en vivo</span>
+          <span>0 mockups</span>
+          <span>Est. 2026</span>
+        </div>
+        <a href="#contacto" class="hero-cta"><i class="fa-brands fa-whatsapp"></i> Cuéntame qué necesitas →</a>
+      </div>
+      <div class="col-4 gutter-l">
+        <div class="rule-bottom pad">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-muted);margin-bottom:0.6rem;">En este número</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;line-height:1.15;">Tres cosas que hacemos, cinco proyectos showables, y tres herramientas para probar hoy.</div>
+        </div>
+        <div class="pad">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:0.5rem;">→ Portafolio</div>
+          <div style="font-size:0.92rem;color:var(--ink-dim);line-height:1.5;">Sud American Lumber, Posada Real de Chiapas, Las Fresas — todos en vivo, con clientes reales usándolos.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK + SERVICES: two-column dispatch -->
+  <section id="trabajo" class="pad-section">
+    <div class="grid">
+      <!-- Work: main column -->
+      <div class="col-8 gutter">
+        <div class="section-flag">
+          <span>§ 01 — Trabajo real, en vivo</span>
+          <span class="page">Página 2</span>
+        </div>
+        <a class="work-row" href="https://www.sudamericanlumber.com/" target="_blank" rel="noopener">
+          <div class="work-num">01</div>
+          <div>
+            <div class="work-title">Sud American Lumber <span class="live">● en vivo</span></div>
+            <div class="work-desc">Catálogo bilingüe para exportador de maderas finas peruanas. Diseñado para venta internacional, optimizado para el comprador extranjero.</div>
+            <div class="work-meta">Exportación · sudamericanlumber.com →</div>
+          </div>
+        </a>
+        <a class="work-row" href="https://www.posadarealchiapas.com.mx/" target="_blank" rel="noopener">
+          <div class="work-num">02</div>
+          <div>
+            <div class="work-title">Posada Real de Chiapas <span class="live">● en vivo</span></div>
+            <div class="work-desc">Hotel boutique en San Cristóbal de las Casas. CMS gestionado por el staff sin tocar código.</div>
+            <div class="work-meta">Hospitalidad · posadarealchiapas.com.mx →</div>
+          </div>
+        </a>
+        <a class="work-row" href="https://lasfresas.com.mx/" target="_blank" rel="noopener">
+          <div class="work-num">03</div>
+          <div>
+            <div class="work-title">Las Fresas <span class="live">● en vivo</span></div>
+            <div class="work-desc">Tienda de postres en Dolores Hidalgo. Carrito, galería y CTAs flotantes para pedir desde el celular.</div>
+            <div class="work-meta">E-commerce · lasfresas.com.mx →</div>
+          </div>
+        </a>
+        <a class="work-row" href="#">
+          <div class="work-num">04</div>
+          <div>
+            <div class="work-title">QRO Seguro <span class="archived">○ archivo</span></div>
+            <div class="work-desc">Control de acceso con QR para comunidades privadas. Structured data y SEO local completo.</div>
+            <div class="work-meta">Seguridad · caso cerrado</div>
+          </div>
+        </a>
+        <a class="work-row" href="#">
+          <div class="work-num">05</div>
+          <div>
+            <div class="work-title">CipherShield Security <span class="archived">○ archivo</span></div>
+            <div class="work-desc">Sitio bilingüe (ES/EN) para firma de ciberseguridad. Astro + React + MDX, con blog técnico.</div>
+            <div class="work-meta">Cybersec · caso cerrado</div>
+          </div>
+        </a>
+        <a class="work-cta-row" href="#contacto">
+          <div class="work-title">¿El siguiente? → Tu proyecto</div>
+          <div class="work-desc">Cuéntame qué está roto, lento o ausente. Te digo en una llamada si lo puedo resolver, y en cuánto.</div>
+        </a>
+      </div>
+
+      <!-- Services: sidebar -->
+      <aside id="servicios" class="col-4 gutter-l">
+        <div class="section-flag">
+          <span>§ 02 — Servicios</span>
+          <span class="page">Página 3</span>
+        </div>
+        <div class="svc-item">
+          <div class="svc-num">01</div>
+          <div class="svc-title">Sitios que trabajan</div>
+          <div class="svc-desc">No "tener presencia". Sitios que capturan clientes, muestran tu trabajo, y no te dan dolores de cabeza cada mes.</div>
+        </div>
+        <div class="svc-item">
+          <div class="svc-num">02</div>
+          <div class="svc-title">Herramientas para tu negocio</div>
+          <div class="svc-desc">Verificadores, diagnósticos, automatizaciones. Cosas que de verdad ahorran horas, no demos de juguete.</div>
+        </div>
+        <div class="svc-item">
+          <div class="svc-num">03</div>
+          <div class="svc-title">IA que sirve para algo</div>
+          <div class="svc-desc">No la moda. Lo que de verdad te ahorra horas: asistentes internos, herramientas a medida, procesos.</div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- TOOLS: classified boxes -->
+  <section id="herramientas" class="pad-section rule-top">
+    <div class="section-flag">
+      <span>§ 03 — Herramientas gratis, en vivo</span>
+      <span class="page">Página 4</span>
+    </div>
+    <div class="grid">
+      <div class="col-4 gutter">
+        <div class="tool-box">
+          <div class="tool-kicker">→ Correo</div>
+          <div class="tool-name">Verificador de correo</div>
+          <div class="tool-desc">Pon tu dominio. Te decimos si tus correos llegan — MX, SPF, DKIM, DMARC en lenguaje claro.</div>
+        </div>
+      </div>
+      <div class="col-4 gutter">
+        <div class="tool-box">
+          <div class="tool-kicker">→ Sitio</div>
+          <div class="tool-name">Diagnóstico de sitio</div>
+          <div class="tool-desc">Pon tu URL. Meta tags, mobile, HTTPS, peso de página. "Tu sitio carga lento", no jerga.</div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="tool-box">
+          <div class="tool-kicker">→ IA</div>
+          <div class="tool-name">Descripciones con IA</div>
+          <div class="tool-desc">Dame tu producto. Te genero copy de venta en español — demo real de integración con IA.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT: pull quote -->
+  <section id="contacto" class="contact-block">
+    <div class="grid">
+      <div class="col-8" style="grid-column: 4 / span 6;">
+        <div class="contact-quote">¿<em>Platicamos</em>?</div>
+        <p class="contact-sub">No necesitas tener todo resuelto. Un mensaje, una duda, una idea a medio formar — te digo si lo puedo tomar.</p>
+        <a href="https://wa.me/5214425834043" target="_blank" rel="noopener" class="hero-cta"><i class="fa-brands fa-whatsapp"></i> Mándame un WhatsApp →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLOPHON -->
+  <footer class="colophon">
+    <div>Impulso Digital · Querétaro, México · Est. 2026</div>
+    <div class="colophon-links">
+      <a href="https://github.com/bermudi" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/bermudi/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://bsky.app/profile/bermudi.dev" target="_blank" rel="noopener">Bluesky</a>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

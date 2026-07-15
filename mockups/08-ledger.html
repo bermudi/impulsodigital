@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impulso Digital — Sitios y sistemas que trabajan por ti</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css">
+<style>
+/* ============================================================
+   08 — "Ledger"
+   The bound inventory ledger — proof of shipped work as
+   documentation. Aged paper, slab serif, ruled tabular rows.
+   Rubber-stamp "EN VIVO" / "ARCHIVADO" marks on each project.
+   ============================================================ */
+:root {
+  --paper: #f0e9d6;
+  --paper-2: #e6dec7;
+  --paper-3: #ddd3b8;
+  --ink: #1c1814;
+  --ink-dim: #5a4f42;
+  --ink-muted: #8a7d6b;
+  --rule: #b8a98f;
+  --rule-soft: #cec3a8;
+  --stamp-red: #b2241f;
+  --stamp-blue: #1e4d7b;
+  --maxw: 1060px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 15.5px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  background-image: linear-gradient(var(--rule-soft) 1px, transparent 1px);
+  background-size: 100% 32px;
+  background-position: 0 0;
+}
+body::before { content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 0%, transparent 50%, rgba(120,90,40,0.08) 100%); }
+
+.site-header { position: sticky; top: 0; z-index: 50; background: rgba(240,233,214,0.94); backdrop-filter: blur(8px); border-bottom: 2px solid var(--ink); }
+.header-inner { max-width: var(--maxw); margin: 0 auto; padding: 0.9rem 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.brand { text-decoration: none; display: flex; align-items: center; gap: 0.7rem; }
+.brand-mark { width: 16px; height: 16px; background: var(--stamp-red); border-radius: 50%; position: relative; }
+.brand-mark::after { content: "i"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--paper); font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; font-weight: 700; }
+.brand h1 { font-family: 'Archivo Black', sans-serif; font-size: 1.15rem; font-weight: 400; letter-spacing: -0.01em; color: var(--ink); }
+.brand h1 .light { color: var(--ink-muted); font-weight: 400; }
+.site-nav { display: flex; align-items: center; gap: 1.5rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; }
+.site-nav a { color: var(--ink-dim); text-decoration: none; transition: color 0.2s ease; }
+.site-nav a:hover { color: var(--stamp-red); }
+.site-nav .nav-cta { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1rem; background: var(--ink); color: var(--paper); border-radius: 0; font-weight: 600; font-size: 0.76rem; transition: background 0.2s ease, transform 0.2s ease; }
+.site-nav .nav-cta:hover { background: var(--stamp-red); transform: translateY(-1px); }
+
+main { position: relative; z-index: 1; }
+section { padding: 6rem 1.5rem; }
+.section-head { max-width: var(--maxw); margin: 0 auto 3.5rem; }
+.section-tag { display: inline-flex; align-items: center; gap: 0.6rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.76rem; font-weight: 600; letter-spacing: 0.04em; color: var(--stamp-blue); margin-bottom: 1.2rem; text-transform: uppercase; }
+.section-tag::before { content: "§"; color: var(--stamp-red); }
+.section-head h2 { font-family: 'Archivo Black', sans-serif; font-size: clamp(2.2rem, 5.5vw, 4rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1; margin-bottom: 1rem; }
+.section-head h2 .stamp-red { color: var(--stamp-red); }
+.section-head h2 .stamp-blue { color: var(--stamp-blue); }
+.section-lede { color: var(--ink-dim); font-size: 1.05rem; max-width: 540px; }
+
+.hero { padding: 5rem 1.5rem 6rem; }
+.hero-inner { max-width: var(--maxw); margin: 0 auto; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 0.6rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--ink-dim); margin-bottom: 2rem; padding: 0.4rem 0.8rem; border: 1px solid var(--rule); background: rgba(255,255,255,0.4); }
+.status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--stamp-red); box-shadow: 0 0 0 3px rgba(178,36,31,0.15); animation: pulse 2.4s ease infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+.hero-headline { font-family: 'Archivo Black', sans-serif; font-size: clamp(2.6rem, 6.5vw, 5rem); font-weight: 400; letter-spacing: -0.025em; line-height: 0.98; margin-bottom: 1.8rem; max-width: 820px; }
+.hero-headline .stamp-red { color: var(--stamp-red); }
+.hero-sub { font-size: 1.15rem; color: var(--ink-dim); max-width: 500px; margin-bottom: 2.4rem; line-height: 1.6; }
+.hero-cta-row { display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap; }
+
+.cta { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.84rem; font-weight: 600; letter-spacing: 0.02em; padding: 0.85rem 1.4rem; border-radius: 0; text-decoration: none; transition: all 0.2s ease; cursor: pointer; border: 1px solid transparent; text-transform: uppercase; }
+.cta-primary { background: var(--ink); color: var(--paper); }
+.cta-primary:hover { background: var(--stamp-red); transform: translateY(-1px); }
+.cta-ghost { color: var(--ink); background: transparent; border: 1px solid var(--ink); }
+.cta-ghost:hover { background: var(--ink); color: var(--paper); }
+.cta-large { font-size: 0.92rem; padding: 1rem 1.9rem; }
+
+.work { border-top: 2px solid var(--ink); background: rgba(255,255,255,0.3); }
+.work-list { max-width: var(--maxw); margin: 0 auto; }
+.work-head, .work-row { display: grid; grid-template-columns: 50px 1fr 130px 130px 30px; gap: 1.5rem; align-items: center; }
+.work-head { padding: 0.7rem 0; border-bottom: 2px solid var(--ink); font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted); }
+.work-row { padding: 1.8rem 0; border-bottom: 1px solid var(--rule); text-decoration: none; color: inherit; transition: background 0.2s ease; }
+.work-row:hover { background: rgba(178,36,31,0.06); }
+.work-row-idx { font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; color: var(--ink-muted); }
+.work-row-title h3 { font-family: 'Archivo Black', sans-serif; font-size: 1.35rem; font-weight: 400; letter-spacing: -0.01em; line-height: 1.05; margin-bottom: 0.35rem; }
+.work-row-title p { color: var(--ink-dim); font-size: 0.9rem; }
+.work-row-tag { font-family: 'IBM Plex Mono', monospace; font-size: 0.74rem; color: var(--ink-muted); text-transform: uppercase; }
+.work-row-status { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.35rem 0.6rem; border: 2px solid; border-radius: 2px; transform: rotate(-2deg); width: fit-content; }
+.work-row-status.live { color: var(--stamp-red); border-color: var(--stamp-red); background: rgba(178,36,31,0.06); }
+.work-row-status.archived { color: var(--stamp-blue); border-color: var(--stamp-blue); background: rgba(30,77,123,0.06); transform: rotate(1.5deg); }
+.dot-live { width: 6px; height: 6px; border-radius: 50%; background: var(--stamp-red); animation: pulse 2s ease infinite; }
+.work-row-arrow { color: var(--ink-muted); text-align: right; font-size: 0.95rem; transition: color 0.2s ease, transform 0.2s ease; }
+.work-row:hover .work-row-arrow { color: var(--stamp-red); transform: translateX(4px); }
+.work-row-cta { border: 1px dashed var(--stamp-red); border-radius: 0; margin-top: 1.2rem; padding: 1.8rem 1.2rem; grid-template-columns: 50px 1fr 30px; }
+.work-row-cta .work-row-title h3 { color: var(--stamp-red); }
+.work-row-cta .work-row-tag, .work-row-cta .work-row-status { display: none; }
+
+.lane-list { max-width: var(--maxw); margin: 0 auto; display: flex; flex-direction: column; gap: 0; }
+.lane { display: grid; grid-template-columns: 60px 1fr; gap: 1.8rem; align-items: start; padding: 2rem 0; border-top: 1px solid var(--rule); transition: padding 0.25s ease; }
+.lane:last-child { border-bottom: 1px solid var(--rule); }
+.lane:hover { padding-left: 1rem; }
+.lane-num { font-family: 'IBM Plex Mono', monospace; font-size: 1.4rem; font-weight: 600; color: var(--stamp-blue); padding-top: 0.15rem; }
+.lane-body h3 { font-family: 'Archivo Black', sans-serif; font-size: 1.3rem; font-weight: 400; letter-spacing: -0.01em; margin-bottom: 0.5rem; }
+.lane-body h3 i { color: var(--stamp-red); margin-right: 0.6rem; font-size: 0.85em; }
+.lane-body p { color: var(--ink-dim); font-size: 0.98rem; }
+
+.tools { border-top: 2px solid var(--ink); background: rgba(255,255,255,0.3); }
+.tools-preview { max-width: var(--maxw); margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+.tool-card { padding: 1.6rem; border: 1px solid var(--rule); border-radius: 0; background: rgba(255,255,255,0.5); transition: border-color 0.25s ease, transform 0.25s ease; }
+.tool-card:hover { border-color: var(--stamp-red); transform: translateY(-2px); }
+.tool-head { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.8rem; }
+.tool-icon { color: var(--stamp-red); font-size: 1rem; }
+.tool-card h3 { font-family: 'Archivo Black', sans-serif; font-size: 1.1rem; font-weight: 400; letter-spacing: -0.01em; }
+.tool-card p { color: var(--ink-dim); font-size: 0.9rem; margin-bottom: 0.9rem; line-height: 1.55; }
+.tool-link { font-family: 'IBM Plex Mono', monospace; font-size: 0.76rem; color: var(--stamp-blue); text-decoration: none; text-transform: uppercase; letter-spacing: 0.04em; }
+.tool-link::after { content: " →"; }
+
+.contact { text-align: center; padding: 8rem 1.5rem; border-top: 2px solid var(--ink); }
+.contact-inner { max-width: 600px; margin: 0 auto; }
+.contact h2 { font-family: 'Archivo Black', sans-serif; font-size: clamp(2.4rem, 6vw, 4.5rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1; margin-bottom: 1.2rem; }
+.contact h2 .stamp-red { color: var(--stamp-red); }
+.contact p { color: var(--ink-dim); margin-bottom: 2rem; font-size: 1.1rem; }
+
+.site-footer { border-top: 2px solid var(--ink); padding: 2rem 1.5rem; background: var(--paper-2); }
+.footer-inner { max-width: var(--maxw); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.footer-brand { display: flex; flex-direction: column; gap: 0.2rem; }
+.footer-name { font-family: 'Archivo Black', sans-serif; font-size: 1rem; color: var(--ink); }
+.footer-loc { font-family: 'IBM Plex Mono', monospace; font-size: 0.74rem; color: var(--ink-muted); }
+.footer-links { display: flex; gap: 0.5rem; }
+.footer-links a { display: inline-flex; width: 34px; height: 34px; align-items: center; justify-content: center; color: var(--ink-dim); text-decoration: none; border: 1px solid var(--rule); border-radius: 0; transition: all 0.25s ease; background: rgba(255,255,255,0.4); }
+.footer-links a:hover { color: var(--stamp-red); border-color: var(--stamp-red); }
+
+.mockup-badge { position: fixed; top: 64px; right: 16px; z-index: 100; font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; font-weight: 600; color: var(--stamp-red); background: var(--paper); border: 2px solid var(--stamp-red); padding: 0.4rem 0.75rem; border-radius: 2px; text-transform: uppercase; transform: rotate(-1deg); }
+
+@media (max-width: 768px) {
+  section { padding: 4rem 1.2rem; }
+  .site-nav a:not(.nav-cta) { display: none; }
+  .work-head { display: none; }
+  .work-row, .work-row-cta { grid-template-columns: 1fr; gap: 0.4rem; }
+  .hero-cta-row { flex-direction: column; align-items: stretch; }
+  .lane { grid-template-columns: 1fr; gap: 0.4rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .status-dot, .dot-live { animation: none !important; }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<div class="mockup-badge">08 · ledger</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="brand"><span class="brand-mark"></span><h1>impulso <span class="light">digital</span></h1></a>
+    <nav class="site-nav">
+      <a href="#trabajo">trabajo</a>
+      <a href="#que-hago">servicios</a>
+      <a href="#herramientas">tools</a>
+      <a href="https://wa.me/5214425834043" target="_blank" rel="noopener" class="nav-cta"><i class="fa-brands fa-whatsapp"></i> hablemos</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow"><span class="status-dot"></span> disponible · Querétaro, México</div>
+      <h1 class="hero-headline">Sitios y sistemas que <span class="stamp-red">trabajan por ti</span>.</h1>
+      <p class="hero-sub">No diseñamos bonito que no sirve. Construimos webs que traen clientes y herramientas que se comen lo aburrido de tu día.</p>
+      <div class="hero-cta-row">
+        <a class="cta cta-primary" href="https://wa.me/5214425834043" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> cuéntame qué necesitas</a>
+        <a class="cta cta-ghost" href="#trabajo">ver trabajo</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="trabajo" class="work">
+    <div class="section-head">
+      <span class="section-tag">01 trabajo real, en vivo</span>
+      <h2>No mockups.<br>No <span class="stamp-red">"próximamente"</span>.</h2>
+      <p class="section-lede">Esto está live, funcionando, con clientes reales usándolo.</p>
+    </div>
+    <div class="work-list">
+      <div class="work-head"><span>no.</span><span>proyecto</span><span>tipo</span><span>estado</span><span></span></div>
+      <a class="work-row" href="https://www.sudamericanlumber.com/" target="_blank" rel="noopener">
+        <span class="work-row-idx">01</span>
+        <div class="work-row-title"><h3>Sud American Lumber</h3><p>Catálogo bilingüe para exportador de maderas finas peruanas.</p></div>
+        <span class="work-row-tag">exportación</span>
+        <span class="work-row-status live"><span class="dot-live"></span> en vivo</span>
+        <span class="work-row-arrow">→</span>
+      </a>
+      <a class="work-row" href="https://www.posadarealchiapas.com.mx/" target="_blank" rel="noopener">
+        <span class="work-row-idx">02</span>
+        <div class="work-row-title"><h3>Posada Real de Chiapas</h3><p>Hotel boutique en San Cristóbal. CMS gestionado por el staff.</p></div>
+        <span class="work-row-tag">hospitalidad</span>
+        <span class="work-row-status live"><span class="dot-live"></span> en vivo</span>
+        <span class="work-row-arrow">→</span>
+      </a>
+      <a class="work-row" href="https://lasfresas.com.mx/" target="_blank" rel="noopener">
+        <span class="work-row-idx">03</span>
+        <div class="work-row-title"><h3>Las Fresas</h3><p>Tienda de postres en Dolores Hidalgo. Carrito, galería, CTAs flotantes.</p></div>
+        <span class="work-row-tag">e-commerce</span>
+        <span class="work-row-status live"><span class="dot-live"></span> en vivo</span>
+        <span class="work-row-arrow">→</span>
+      </a>
+      <a class="work-row" href="#">
+        <span class="work-row-idx">04</span>
+        <div class="work-row-title"><h3>QRO Seguro</h3><p>Control de acceso con QR para comunidades privadas. SEO local completo.</p></div>
+        <span class="work-row-tag">seguridad</span>
+        <span class="work-row-status archived">archivado</span>
+        <span class="work-row-arrow">→</span>
+      </a>
+      <a class="work-row" href="#">
+        <span class="work-row-idx">05</span>
+        <div class="work-row-title"><h3>CipherShield Security</h3><p>Sitio bilingüe (ES/EN) para firma de ciberseguridad. Astro + React + MDX.</p></div>
+        <span class="work-row-tag">cybersec</span>
+        <span class="work-row-status archived">archivado</span>
+        <span class="work-row-arrow">→</span>
+      </a>
+      <a class="work-row work-row-cta" href="https://wa.me/5214425834043" target="_blank" rel="noopener">
+        <span class="work-row-idx">06</span>
+        <div class="work-row-title"><h3>Tu proyecto</h3><p>Cuéntame qué está roto, lento o ausente. Te digo si lo puedo resolver.</p></div>
+        <span class="work-row-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <section id="que-hago">
+    <div class="section-head">
+      <span class="section-tag">02 en lo que somos buenos</span>
+      <h2>Tres cosas,<br>no <span class="stamp-red">veinte</span>.</h2>
+    </div>
+    <div class="lane-list">
+      <article class="lane">
+        <div class="lane-num">01</div>
+        <div class="lane-body">
+          <h3><i class="fa-solid fa-window-maximize"></i> Sitios que trabajan</h3>
+          <p>No "tener presencia en internet". Sitios que capturan clientes, muestran tu trabajo, y no te dan dolores de cabeza cada mes.</p>
+        </div>
+      </article>
+      <article class="lane">
+        <div class="lane-num">02</div>
+        <div class="lane-body">
+          <h3><i class="fa-solid fa-gears"></i> Herramientas para tu negocio</h3>
+          <p>Verificadores, diagnósticos, automatizaciones. Cosas que de verdad ahorran horas, no demos de juguete.</p>
+        </div>
+      </article>
+      <article class="lane">
+        <div class="lane-num">03</div>
+        <div class="lane-body">
+          <h3><i class="fa-solid fa-brain"></i> IA que sirve para algo</h3>
+          <p>No la moda, no el hype. Lo que de verdad te ahorra horas: asistentes internos, herramientas a medida, procesos.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="herramientas" class="tools">
+    <div class="section-head">
+      <span class="section-tag">03 pruébalo gratis</span>
+      <h2>Herramientas<br>en <span class="stamp-blue">vivo</span>.</h2>
+      <p class="section-lede">No te lo contamos — lo mostramos. Usa estas herramientas ahora mismo, sin registro.</p>
+    </div>
+    <div class="tools-preview">
+      <div class="tool-card">
+        <div class="tool-head"><i class="fa-solid fa-envelope-circle-check tool-icon"></i><h3>verificador de correo</h3></div>
+        <p>Pon tu dominio. Te decimos si tus correos llegan — MX, SPF, DKIM, DMARC en lenguaje claro.</p>
+        <a href="#" class="tool-link">probar</a>
+      </div>
+      <div class="tool-card">
+        <div class="tool-head"><i class="fa-solid fa-gauge-high tool-icon"></i><h3>diagnóstico de sitio</h3></div>
+        <p>Pon tu URL. Meta tags, mobile, HTTPS, peso de página. "Tu sitio carga lento", no jerga.</p>
+        <a href="#" class="tool-link">probar</a>
+      </div>
+      <div class="tool-card">
+        <div class="tool-head"><i class="fa-solid fa-wand-magic-sparkles tool-icon"></i><h3>descripciones con IA</h3></div>
+        <p>Dame tu producto. Te genero copy de venta en español — demo real de integración con IA.</p>
+        <a href="#" class="tool-link">probar</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact">
+    <div class="contact-inner">
+      <h2>¿<span class="stamp-red">platicamos</span>?</h2>
+      <p>No necesitas tener todo resuelto. Un mensaje, una duda, una idea a medio formar — te digo si lo puedo tomar.</p>
+      <a class="cta cta-large cta-primary" href="https://wa.me/5214425834043" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> mándame un WhatsApp</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-name">impulso digital</span>
+      <span class="footer-loc">Querétaro, México · est. 2026</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/bermudi" target="_blank" rel="noopener" title="GitHub"><i class="fa-brands fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/bermudi/" target="_blank" rel="noopener" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="https://bsky.app/profile/bermudi.dev" target="_blank" rel="noopener" title="Bluesky"><i class="fa-brands fa-bluesky"></i></a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impulso Digital — Index</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css">
+<style>
+/* 11 — INDEX
+   A directory/table-of-contents composition. The page IS an
+   index — entries listed with leader dots, page numbers,
+   tiny metadata. Dense, navigational, archival. */
+:root {
+  --bg: #fafaf7;
+  --ink: #1a1815;
+  --ink-dim: #565049;
+  --ink-muted: #948d82;
+  --rule: #1a1815;
+  --rule-soft: #d8d3c8;
+  --accent: #c2410c;
+  --mark: #f0e9d8;
+  --maxw: 900px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--ink); font-family: 'Inter', system-ui, sans-serif; font-size: 15.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+
+/* Header */
+.site-header { border-bottom: 1px solid var(--rule); padding: 1rem 1.5rem; position: sticky; top: 0; z-index: 50; background: rgba(250,250,247,0.95); backdrop-filter: blur(8px); }
+.header-inner { max-width: var(--maxw); margin: 0 auto; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.brand { text-decoration: none; font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.2rem; letter-spacing: -0.01em; }
+.brand em { font-style: italic; font-weight: 400; color: var(--accent); }
+.brand-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.site-nav { display: flex; gap: 1.4rem; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.site-nav a { text-decoration: none; color: var(--ink-dim); }
+.site-nav a:hover { color: var(--accent); }
+.site-nav .nav-cta { color: var(--accent); }
+
+/* Index wrapper — narrow column */
+.index { max-width: var(--maxw); margin: 0 auto; padding: 0 1.5rem; }
+
+/* Hero — index entry style */
+.hero { padding: 5rem 0 4rem; border-bottom: 1px solid var(--rule); }
+.hero-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 2rem; display: flex; align-items: center; gap: 0.5rem; }
+.hero-eyebrow .pulse { width: 7px; height: 7px; background: var(--accent); border-radius: 50%; animation: pulse 2.4s ease infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+.hero-headline { font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(2.4rem, 6vw, 4.5rem); line-height: 1.02; letter-spacing: -0.025em; margin-bottom: 1.5rem; }
+.hero-headline em { font-style: italic; font-weight: 400; color: var(--accent); }
+.hero-sub { font-family: 'Fraunces', serif; font-size: 1.2rem; font-style: italic; color: var(--ink-dim); line-height: 1.5; max-width: 580px; margin-bottom: 2rem; }
+.hero-actions { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+.hero-actions a { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em; text-decoration: none; padding: 0.7rem 1.2rem; border: 1px solid var(--ink); transition: all 0.2s ease; }
+.hero-actions .primary { background: var(--ink); color: var(--bg); }
+.hero-actions .primary:hover { background: var(--accent); border-color: var(--accent); }
+.hero-actions .ghost:hover { background: var(--ink); color: var(--bg); }
+
+/* Section — table of contents block */
+.toc-section { padding: 4rem 0; border-bottom: 1px solid var(--rule-soft); }
+.toc-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 2rem; }
+.toc-title { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent); }
+.toc-count { font-family: 'Fraunces', serif; font-style: italic; font-size: 0.95rem; color: var(--ink-muted); }
+
+/* Leader-dot entry — the signature of this composition */
+.entry { display: flex; align-items: baseline; gap: 0.5rem; padding: 0.9rem 0; border-bottom: 1px dotted var(--rule-soft); text-decoration: none; color: inherit; transition: background 0.15s ease; }
+.entry:hover { background: var(--mark); }
+.entry:hover .entry-title { color: var(--accent); }
+.entry-num { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--ink-muted); flex-shrink: 0; min-width: 28px; }
+.entry-title-wrap { flex-shrink: 0; }
+.entry-title { font-family: 'Fraunces', serif; font-weight: 500; font-size: 1.25rem; letter-spacing: -0.01em; transition: color 0.15s ease; }
+.entry-title .live { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-left: 0.5rem; vertical-align: middle; }
+.entry-title .archived { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted); margin-left: 0.5rem; vertical-align: middle; }
+.entry-leader { flex-grow: 1; border-bottom: 1px dotted var(--ink-muted); margin-bottom: 0.3rem; min-width: 20px; }
+.entry-desc { font-size: 0.85rem; color: var(--ink-dim); flex-shrink: 0; max-width: 280px; line-height: 1.4; }
+.entry-page { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--ink-muted); flex-shrink: 0; min-width: 60px; text-align: right; }
+
+/* CTA entry — dashed */
+.entry-cta { border: 1px dashed var(--accent); padding: 1.2rem 1rem; margin-top: 1.2rem; background: rgba(194,65,12,0.03); }
+.entry-cta .entry-title { color: var(--accent); }
+
+/* Two-column layout for services */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+
+/* Tools as index entries with descriptions inline */
+.tool-entry { display: grid; grid-template-columns: 40px 1fr; gap: 1.2rem; padding: 1.5rem 0; border-bottom: 1px dotted var(--rule-soft); text-decoration: none; color: inherit; transition: background 0.15s ease; }
+.tool-entry:hover { background: var(--mark); }
+.tool-entry:hover .tool-entry-name { color: var(--accent); }
+.tool-entry-num { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--accent); }
+.tool-entry-body { display: flex; flex-direction: column; gap: 0.3rem; }
+.tool-entry-name { font-family: 'Fraunces', serif; font-weight: 500; font-size: 1.2rem; transition: color 0.15s ease; }
+.tool-entry-desc { font-size: 0.9rem; color: var(--ink-dim); line-height: 1.5; }
+.tool-entry-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-muted); }
+
+/* Contact — final entry */
+.contact { padding: 6rem 0 5rem; border-top: 1px solid var(--rule); text-align: center; }
+.contact-headline { font-family: 'Fraunces', serif; font-weight: 500; font-style: italic; font-size: clamp(2.8rem, 7vw, 5rem); line-height: 1.05; letter-spacing: -0.025em; margin-bottom: 1.5rem; }
+.contact-headline em { color: var(--accent); font-style: italic; }
+.contact-sub { font-family: 'Fraunces', serif; font-style: italic; font-size: 1.15rem; color: var(--ink-dim); max-width: 460px; margin: 0 auto 2.5rem; line-height: 1.5; }
+.contact-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.contact-actions a { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em; text-decoration: none; padding: 0.9rem 1.5rem; border: 1px solid var(--ink); transition: all 0.2s ease; }
+.contact-actions .primary { background: var(--ink); color: var(--bg); }
+.contact-actions .primary:hover { background: var(--accent); border-color: var(--accent); }
+
+/* Footer */
+.site-footer { border-top: 1px solid var(--rule); padding: 2rem 1.5rem; }
+.footer-inner { max-width: var(--maxw); margin: 0 auto; display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+.footer-brand { font-family: 'Fraunces', serif; font-style: italic; font-size: 0.95rem; color: var(--ink-dim); }
+.footer-links { display: flex; gap: 1.2rem; font-family: 'JetBrains Mono', monospace; font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.footer-links a { text-decoration: none; color: var(--ink-muted); }
+.footer-links a:hover { color: var(--accent); }
+
+.mockup-badge { position: fixed; top: 64px; right: 16px; z-index: 100; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; text-transform: uppercase; color: var(--accent); background: var(--bg); border: 1px solid var(--rule); padding: 0.35rem 0.7rem; }
+
+@media (max-width: 768px) {
+  .two-col { grid-template-columns: 1fr; gap: 0; }
+  .entry-desc { display: none; }
+  .site-nav a:not(.nav-cta) { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .hero-eyebrow .pulse { animation: none !important; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<div class="mockup-badge">11 · index</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="brand">Impulso <em>Digital</em><span class="brand-meta" style="margin-left:0.8rem;">— índice, 2026</span></a>
+    <nav class="site-nav">
+      <a href="#trabajo">Trabajo</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#herramientas">Tools</a>
+      <a href="#contacto" class="nav-cta">→ Hablemos</a>
+    </nav>
+  </div>
+</header>
+
+<div class="index">
+
+  <section class="hero">
+    <div class="hero-eyebrow"><span class="pulse"></span> Disponible · Querétaro, México · Edición 001</div>
+    <h1 class="hero-headline">Sitios y sistemas que <em>trabajan por ti</em>.</h1>
+    <p class="hero-sub">No diseñamos bonito que no sirve. Construimos webs que traen clientes y herramientas que se comen lo aburrido de tu día.</p>
+    <div class="hero-actions">
+      <a href="#contacto" class="primary"><i class="fa-brands fa-whatsapp"></i> Cuéntame qué necesitas</a>
+      <a href="#trabajo" class="ghost">Ver trabajo ↓</a>
+    </div>
+  </section>
+
+  <section id="trabajo" class="toc-section">
+    <div class="toc-head">
+      <span class="toc-title">§ I — Trabajo real, en vivo</span>
+      <span class="toc-count">cinco entradas</span>
+    </div>
+    <a class="entry" href="https://www.sudamericanlumber.com/" target="_blank" rel="noopener">
+      <span class="entry-num">01.</span>
+      <span class="entry-title-wrap"><span class="entry-title">Sud American Lumber <span class="live">● en vivo</span></span></span>
+      <span class="entry-leader"></span>
+      <span class="entry-desc">Catálogo bilingüe para exportador de maderas finas peruanas.</span>
+      <span class="entry-page">→ live</span>
+    </a>
+    <a class="entry" href="https://www.posadarealchiapas.com.mx/" target="_blank" rel="noopener">
+      <span class="entry-num">02.</span>
+      <span class="entry-title-wrap"><span class="entry-title">Posada Real de Chiapas <span class="live">● en vivo</span></span></span>
+      <span class="entry-leader"></span>
+      <span class="entry-desc">Hotel boutique en San Cristóbal. CMS gestionado por el staff.</span>
+      <span class="entry-page">→ live</span>
+    </a>
+    <a class="entry" href="https://lasfresas.com.mx/" target="_blank" rel="noopener">
+      <span class="entry-num">03.</span>
+      <span class="entry-title-wrap"><span class="entry-title">Las Fresas <span class="live">● en vivo</span></span></span>
+      <span class="entry-leader"></span>
+      <span class="entry-desc">Tienda de postres en Dolores Hidalgo. Carrito, galería, CTAs.</span>
+      <span class="entry-page">→ live</span>
+    </a>
+    <a class="entry" href="#">
+      <span class="entry-num">04.</span>
+      <span class="entry-title-wrap"><span class="entry-title">QRO Seguro <span class="archived">○ archivo</span></span></span>
+      <span class="entry-leader"></span>
+      <span class="entry-desc">Control de acceso con QR para comunidades privadas.</span>
+      <span class="entry-page">caso</span>
+    </a>
+    <a class="entry" href="#">
+      <span class="entry-num">05.</span>
+      <span class="entry-title-wrap"><span class="entry-title">CipherShield Security <span class="archived">○ archivo</span></span></span>
+      <span class="entry-leader"></span>
+      <span class="entry-desc">Sitio bilingüe para firma de ciberseguridad. Astro+React+MDX.</span>
+      <span class="entry-page">caso</span>
+    </a>
+    <a class="entry entry-cta" href="#contacto">
+      <span class="entry-num">06.</span>
+      <span class="entry-title-wrap"><span class="entry-title">¿El siguiente? Tu proyecto</span></span>
+      <span class="entry-leader"></span>
+      <span class="entry-desc">Cuéntame qué está roto, lento o ausente. Te digo si lo puedo resolver.</span>
+      <span class="entry-page">→ WA</span>
+    </a>
+  </section>
+
+  <section id="servicios" class="toc-section">
+    <div class="two-col">
+      <div>
+        <div class="toc-head">
+          <span class="toc-title">§ II — Servicios</span>
+          <span class="toc-count">tres</span>
+        </div>
+        <a class="entry" href="#contacto">
+          <span class="entry-num">01.</span>
+          <span class="entry-title-wrap"><span class="entry-title">Sitios que trabajan</span></span>
+          <span class="entry-leader"></span>
+          <span class="entry-page">p. 2</span>
+        </a>
+        <a class="entry" href="#contacto">
+          <span class="entry-num">02.</span>
+          <span class="entry-title-wrap"><span class="entry-title">Herramientas para tu negocio</span></span>
+          <span class="entry-leader"></span>
+          <span class="entry-page">p. 2</span>
+        </a>
+        <a class="entry" href="#contacto">
+          <span class="entry-num">03.</span>
+          <span class="entry-title-wrap"><span class="entry-title">IA que sirve para algo</span></span>
+          <span class="entry-leader"></span>
+          <span class="entry-page">p. 2</span>
+        </a>
+      </div>
+      <div style="padding-top: 3rem;">
+        <div style="font-family:'Fraunces',serif;font-style:italic;color:var(--ink-dim);font-size:0.95rem;line-height:1.55;">
+          <p style="margin-bottom:1rem;"><strong style="font-style:normal;">Sitios que trabajan.</strong> No "tener presencia en internet". Sitios que capturan clientes, muestran tu trabajo, y no te dan dolores de cabeza cada mes.</p>
+          <p style="margin-bottom:1rem;"><strong style="font-style:normal;">Herramientas.</strong> Verificadores, diagnósticos, automatizaciones. Cosas que de verdad ahorran horas, no demos de juguete.</p>
+          <p><strong style="font-style:normal;">IA que sirve.</strong> No la moda. Lo que de verdad te ahorra horas: asistentes internos, herramientas a medida, procesos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="herramientas" class="toc-section">
+    <div class="toc-head">
+      <span class="toc-title">§ III — Herramientas gratis, en vivo</span>
+      <span class="toc-count">tres</span>
+    </div>
+    <a class="tool-entry" href="#">
+      <span class="tool-entry-num">→ 01</span>
+      <div class="tool-entry-body">
+        <span class="tool-entry-name">Verificador de correo</span>
+        <span class="tool-entry-desc">Pon tu dominio. Te decimos si tus correos llegan — MX, SPF, DKIM, DMARC en lenguaje claro.</span>
+        <span class="tool-entry-meta">correo · entrada → p. 3</span>
+      </div>
+    </a>
+    <a class="tool-entry" href="#">
+      <span class="tool-entry-num">→ 02</span>
+      <div class="tool-entry-body">
+        <span class="tool-entry-name">Diagnóstico de sitio</span>
+        <span class="tool-entry-desc">Pon tu URL. Meta tags, mobile, HTTPS, peso de página. "Tu sitio carga lento", no jerga.</span>
+        <span class="tool-entry-meta">sitio · entrada → p. 3</span>
+      </div>
+    </a>
+    <a class="tool-entry" href="#">
+      <span class="tool-entry-num">→ 03</span>
+      <div class="tool-entry-body">
+        <span class="tool-entry-name">Descripciones con IA</span>
+        <span class="tool-entry-desc">Dame tu producto. Te genero copy de venta en español — demo real de integración con IA.</span>
+        <span class="tool-entry-meta">IA · entrada → p. 3</span>
+      </div>
+    </a>
+  </section>
+
+  <section id="contacto" class="contact">
+    <h2 class="contact-headline">¿<em>Platicamos</em>?</h2>
+    <p class="contact-sub">No necesitas tener todo resuelto. Un mensaje, una duda, una idea a medio formar — te digo si lo puedo tomar.</p>
+    <div class="contact-actions">
+      <a href="https://wa.me/5214425834043" target="_blank" rel="noopener" class="primary"><i class="fa-brands fa-whatsapp"></i> Mándame un WhatsApp</a>
+    </div>
+  </section>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">Impulso Digital — Querétaro, México, 2026</div>
+    <div class="footer-links">
+      <a href="https://github.com/bermudi" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/bermudi/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://bsky.app/profile/bermudi.dev" target="_blank" rel="noopener">Bluesky</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impulso Digital — Poster</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css">
+<style>
+/* 10 — POSTER
+   Huge type. Asymmetric overlap. The whole page is a giant
+   printed wall poster. Scale IS the design. */
+:root {
+  --bg: #ebe7dd;
+  --ink: #14110d;
+  --ink-dim: #5a534a;
+  --ink-muted: #8a8074;
+  --accent: #d4380f;
+  --blue: #1e3a8a;
+  --maxw: 1400px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--ink); font-family: 'Inter', system-ui, sans-serif; font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: inherit; }
+
+/* Header — minimal, floats */
+.site-header { position: sticky; top: 0; z-index: 50; background: rgba(235,231,221,0.9); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(20,17,13,0.08); }
+.header-inner { max-width: var(--maxw); margin: 0 auto; padding: 0.8rem 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.brand { text-decoration: none; font-family: 'Anton', sans-serif; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.03em; }
+.brand .dot { color: var(--accent); }
+.site-nav { display: flex; align-items: center; gap: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.site-nav a { text-decoration: none; color: var(--ink-dim); }
+.site-nav a:hover { color: var(--accent); }
+.site-nav .nav-cta { color: var(--bg); background: var(--ink); padding: 0.5rem 0.95rem; }
+
+/* HERO — massive type, overlapping elements */
+.hero { position: relative; min-height: 92vh; padding: 3rem 1.5rem 2rem; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
+.hero-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+.hero-eyebrow .pulse { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: pulse 2.4s ease infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+.hero-headline { font-family: 'Anton', sans-serif; font-size: clamp(4rem, 17vw, 18rem); font-weight: 400; line-height: 0.82; letter-spacing: -0.035em; text-transform: uppercase; position: relative; z-index: 2; }
+.hero-headline .accent { color: var(--accent); }
+.hero-headline .outline { -webkit-text-stroke: 2px var(--ink); color: transparent; }
+.hero-sub { font-family: 'Inter', sans-serif; font-size: clamp(1.1rem, 1.8vw, 1.5rem); color: var(--ink-dim); max-width: 480px; margin-top: 2rem; line-height: 1.4; position: relative; z-index: 2; }
+.hero-cta-row { display: flex; gap: 0.8rem; margin-top: 2.5rem; flex-wrap: wrap; position: relative; z-index: 2; }
+/* Background watermark number */
+.hero-watermark { position: absolute; bottom: -3rem; right: -2rem; font-family: 'Anton', sans-serif; font-size: clamp(20rem, 45vw, 50rem); line-height: 0.8; color: rgba(20,17,13,0.04); z-index: 0; pointer-events: none; user-select: none; }
+
+.cta { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.84rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; padding: 0.9rem 1.5rem; text-decoration: none; transition: all 0.2s ease; }
+.cta-primary { background: var(--ink); color: var(--bg); }
+.cta-primary:hover { background: var(--accent); transform: translateY(-2px); }
+.cta-ghost { color: var(--ink); border: 2px solid var(--ink); }
+.cta-ghost:hover { background: var(--ink); color: var(--bg); }
+
+/* Section dividers — ticker tape style */
+.ticker { background: var(--ink); color: var(--bg); padding: 0.8rem 0; overflow: hidden; white-space: nowrap; }
+.ticker-track { display: inline-flex; gap: 3rem; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.1em; animation: scroll 40s linear infinite; }
+@keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.ticker-track span::before { content: "◆ "; color: var(--accent); }
+
+/* Work — offset blocks, not aligned grid */
+.work { padding: 5rem 1.5rem; }
+.work-head { max-width: var(--maxw); margin: 0 auto 3rem; }
+.work-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 0.8rem; }
+.work-headline { font-family: 'Anton', sans-serif; font-size: clamp(2.5rem, 6vw, 5rem); line-height: 0.9; letter-spacing: -0.02em; text-transform: uppercase; }
+.work-headline .outline { -webkit-text-stroke: 1.5px var(--ink); color: transparent; }
+.work-grid { max-width: var(--maxw); margin: 0 auto; display: grid; grid-template-columns: repeat(12, 1fr); gap: 1rem; }
+.work-card { padding: 2rem; border: 2px solid var(--ink); text-decoration: none; color: inherit; transition: all 0.2s ease; background: var(--bg); display: flex; flex-direction: column; gap: 0.6rem; }
+.work-card:hover { background: var(--ink); color: var(--bg); transform: translate(-4px, -4px); box-shadow: 8px 8px 0 var(--accent); }
+.wc-1 { grid-column: span 7; }
+.wc-2 { grid-column: span 5; margin-top: 3rem; }
+.wc-3 { grid-column: span 4; }
+.wc-4 { grid-column: span 4; margin-top: 2rem; }
+.wc-5 { grid-column: span 4; }
+.wc-cta { grid-column: span 12; margin-top: 2rem; border: 2px dashed var(--accent); }
+.wc-cta:hover { background: var(--accent); color: var(--bg); box-shadow: none; }
+.work-card .wc-status { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; display: flex; justify-content: space-between; }
+.work-card .wc-status .live { color: var(--accent); }
+.work-card .wc-status .archived { color: var(--ink-muted); }
+.work-card:hover .wc-status .archived { color: var(--ink-dim); }
+.work-card h3 { font-family: 'Anton', sans-serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); line-height: 0.95; text-transform: uppercase; }
+.work-card p { font-size: 0.92rem; color: var(--ink-dim); line-height: 1.5; flex-grow: 1; }
+.work-card:hover p { color: rgba(235,231,221,0.8); }
+.work-card .wc-url { font-family: 'JetBrains Mono', monospace; font-size: 0.76rem; color: var(--accent); }
+
+/* Services — vertical stacked, full-bleed */
+.services { background: var(--ink); color: var(--bg); padding: 6rem 1.5rem; }
+.services-inner { max-width: var(--maxw); margin: 0 auto; }
+.services-head { margin-bottom: 4rem; }
+.services-head .work-tag { color: var(--accent); }
+.services-headline { font-family: 'Anton', sans-serif; font-size: clamp(3rem, 8vw, 7rem); line-height: 0.88; text-transform: uppercase; letter-spacing: -0.025em; }
+.services-headline .accent { color: var(--accent); }
+.svc-row { display: grid; grid-template-columns: 80px 1fr 2fr; gap: 2rem; padding: 2.5rem 0; border-top: 1px solid rgba(235,231,221,0.15); align-items: start; }
+.svc-row:last-child { border-bottom: 1px solid rgba(235,231,221,0.15); }
+.svc-num { font-family: 'Anton', sans-serif; font-size: 3rem; color: var(--accent); line-height: 1; }
+.svc-title { font-family: 'Anton', sans-serif; font-size: clamp(1.5rem, 3vw, 2.4rem); text-transform: uppercase; line-height: 1; }
+.svc-desc { font-size: 1rem; color: rgba(235,231,221,0.75); line-height: 1.55; padding-top: 0.4rem; }
+
+/* Tools — pinned trio */
+.tools { padding: 6rem 1.5rem; }
+.tools-inner { max-width: var(--maxw); margin: 0 auto; }
+.tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 3rem; }
+.tool-card { padding: 2.5rem 2rem; border: 2px solid var(--ink); text-decoration: none; color: inherit; transition: all 0.2s ease; }
+.tool-card + .tool-card { border-left: none; }
+.tool-card:hover { background: var(--ink); color: var(--bg); }
+.tool-num { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--accent); margin-bottom: 1rem; }
+.tool-name { font-family: 'Anton', sans-serif; font-size: 2rem; text-transform: uppercase; line-height: 0.95; margin-bottom: 0.8rem; }
+.tool-desc { font-size: 0.92rem; color: var(--ink-dim); line-height: 1.5; }
+.tool-card:hover .tool-desc { color: rgba(235,231,221,0.75); }
+
+/* Contact — poster finale */
+.contact { padding: 8rem 1.5rem; text-align: center; background: var(--bg); }
+.contact-headline { font-family: 'Anton', sans-serif; font-size: clamp(4rem, 12vw, 11rem); line-height: 0.85; text-transform: uppercase; letter-spacing: -0.03em; margin-bottom: 2rem; }
+.contact-headline .accent { color: var(--accent); }
+.contact-headline .outline { -webkit-text-stroke: 2px var(--ink); color: transparent; }
+.contact-sub { font-size: 1.1rem; color: var(--ink-dim); max-width: 440px; margin: 0 auto 2.5rem; }
+
+/* Footer */
+.site-footer { background: var(--ink); color: var(--bg); padding: 2rem 1.5rem; }
+.footer-inner { max-width: var(--maxw); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; font-family: 'JetBrains Mono', monospace; font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.footer-brand { display: flex; flex-direction: column; gap: 0.2rem; }
+.footer-name { font-family: 'Anton', sans-serif; font-size: 1.1rem; }
+.footer-links { display: flex; gap: 1rem; }
+.footer-links a { text-decoration: none; color: rgba(235,231,221,0.7); }
+.footer-links a:hover { color: var(--accent); }
+
+.mockup-badge { position: fixed; top: 64px; right: 16px; z-index: 100; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; text-transform: uppercase; color: var(--accent); background: var(--bg); border: 1px solid var(--ink); padding: 0.35rem 0.7rem; }
+
+@media (max-width: 860px) {
+  .wc-1, .wc-2, .wc-3, .wc-4, .wc-5, .wc-cta { grid-column: span 12; margin-top: 0; }
+  .tools-grid { grid-template-columns: 1fr; }
+  .tool-card + .tool-card { border-left: none; border-top: none; }
+  .svc-row { grid-template-columns: 1fr; gap: 0.5rem; }
+  .site-nav a:not(.nav-cta) { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .hero-eyebrow .pulse, .ticker-track { animation: none !important; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<div class="mockup-badge">10 · poster</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="brand">impulso<span class="dot">.</span>digital</a>
+    <nav class="site-nav">
+      <a href="#trabajo">Trabajo</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#herramientas">Tools</a>
+      <a href="#contacto" class="nav-cta">Hablemos</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-watermark">3</div>
+  <div class="hero-eyebrow"><span class="pulse"></span> Disponible · Querétaro, México</div>
+  <h1 class="hero-headline">
+    <span>SITIOS</span><br>
+    <span class="accent">Y SISTEMAS</span><br>
+    <span class="outline">QUE TRABAJAN</span><br>
+    <span>POR TI.</span>
+  </h1>
+  <p class="hero-sub">No diseñamos bonito que no sirve. Construimos webs que traen clientes y herramientas que se comen lo aburrido de tu día.</p>
+  <div class="hero-cta-row">
+    <a href="#contacto" class="cta cta-primary"><i class="fa-brands fa-whatsapp"></i> Cuéntame qué necesitas</a>
+    <a href="#trabajo" class="cta cta-ghost">Ver trabajo</a>
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <span>3 sitios en vivo</span><span>0 mockups</span><span>5 proyectos showables</span><span>3 herramientas gratis</span><span>Querétaro, México</span>
+    <span>3 sitios en vivo</span><span>0 mockups</span><span>5 proyectos showables</span><span>3 herramientas gratis</span><span>Querétaro, México</span>
+  </div>
+</div>
+
+<section id="trabajo" class="work">
+  <div class="work-head">
+    <div class="work-tag">§ 01 — Trabajo real, en vivo</div>
+    <h2 class="work-headline">No mockups.<br><span class="outline">No "próximamente".</span></h2>
+  </div>
+  <div class="work-grid">
+    <a class="work-card wc-1" href="https://www.sudamericanlumber.com/" target="_blank" rel="noopener">
+      <div class="wc-status"><span>Exportación</span><span class="live">● en vivo</span></div>
+      <h3>Sud American Lumber</h3>
+      <p>Catálogo bilingüe para exportador de maderas finas peruanas. Diseñado para venta internacional.</p>
+      <span class="wc-url">sudamericanlumber.com →</span>
+    </a>
+    <a class="work-card wc-2" href="https://www.posadarealchiapas.com.mx/" target="_blank" rel="noopener">
+      <div class="wc-status"><span>Hospitalidad</span><span class="live">● en vivo</span></div>
+      <h3>Posada Real de Chiapas</h3>
+      <p>Hotel boutique en San Cristóbal. CMS gestionado por el staff sin tocar código.</p>
+      <span class="wc-url">posadarealchiapas.com.mx →</span>
+    </a>
+    <a class="work-card wc-3" href="https://lasfresas.com.mx/" target="_blank" rel="noopener">
+      <div class="wc-status"><span>E-commerce</span><span class="live">● en vivo</span></div>
+      <h3>Las Fresas</h3>
+      <p>Postres en Dolores Hidalgo. Carrito, galería, CTAs flotantes.</p>
+      <span class="wc-url">lasfresas.com.mx →</span>
+    </a>
+    <a class="work-card wc-4" href="#">
+      <div class="wc-status"><span>Seguridad</span><span class="archived">○ archivo</span></div>
+      <h3>QRO Seguro</h3>
+      <p>Control de acceso con QR. SEO local completo.</p>
+      <span class="wc-url">ver caso →</span>
+    </a>
+    <a class="work-card wc-5" href="#">
+      <div class="wc-status"><span>Cybersec</span><span class="archived">○ archivo</span></div>
+      <h3>CipherShield</h3>
+      <p>Sitio bilingüe para firma de ciberseguridad. Astro+React+MDX.</p>
+      <span class="wc-url">ver caso →</span>
+    </a>
+    <a class="work-card wc-cta" href="#contacto">
+      <div class="wc-status"><span>¿El siguiente?</span></div>
+      <h3>Tu proyecto →</h3>
+      <p>Cuéntame qué está roto, lento o ausente. Te digo si lo puedo resolver, y en cuánto.</p>
+    </a>
+  </div>
+</section>
+
+<section id="servicios" class="services">
+  <div class="services-inner">
+    <div class="services-head">
+      <div class="work-tag">§ 02 — Servicios</div>
+      <h2 class="services-headline">Tres cosas,<br>no <span class="accent">veinte</span>.</h2>
+    </div>
+    <div class="svc-row">
+      <div class="svc-num">01</div>
+      <div class="svc-title">Sitios que trabajan</div>
+      <div class="svc-desc">No "tener presencia en internet". Sitios que capturan clientes, muestran tu trabajo, y no te dan dolores de cabeza cada mes.</div>
+    </div>
+    <div class="svc-row">
+      <div class="svc-num">02</div>
+      <div class="svc-title">Herramientas para tu negocio</div>
+      <div class="svc-desc">Verificadores, diagnósticos, automatizaciones. Cosas que de verdad ahorran horas, no demos de juguete.</div>
+    </div>
+    <div class="svc-row">
+      <div class="svc-num">03</div>
+      <div class="svc-title">IA que sirve para algo</div>
+      <div class="svc-desc">No la moda. Lo que de verdad te ahorra horas: asistentes internos, herramientas a medida, procesos.</div>
+    </div>
+  </div>
+</section>
+
+<section id="herramientas" class="tools">
+  <div class="tools-inner">
+    <div class="work-head">
+      <div class="work-tag">§ 03 — Pruébalo gratis</div>
+      <h2 class="work-headline">Herramientas<br><span class="outline">en vivo.</span></h2>
+    </div>
+    <div class="tools-grid">
+      <a class="tool-card" href="#">
+        <div class="tool-num">→ 01 / Correo</div>
+        <div class="tool-name">Verificador de correo</div>
+        <div class="tool-desc">Pon tu dominio. Te decimos si tus correos llegan — MX, SPF, DKIM, DMARC en lenguaje claro.</div>
+      </a>
+      <a class="tool-card" href="#">
+        <div class="tool-num">→ 02 / Sitio</div>
+        <div class="tool-name">Diagnóstico de sitio</div>
+        <div class="tool-desc">Pon tu URL. Meta tags, mobile, HTTPS, peso de página. "Tu sitio carga lento", no jerga.</div>
+      </a>
+      <a class="tool-card" href="#">
+        <div class="tool-num">→ 03 / IA</div>
+        <div class="tool-name">Descripciones con IA</div>
+        <div class="tool-desc">Dame tu producto. Te genero copy de venta en español — demo real de integración con IA.</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="contacto" class="contact">
+  <h2 class="contact-headline">¿<span class="accent">PLATICAMOS</span><br><span class="outline">?</span></h2>
+  <p class="contact-sub">No necesitas tener todo resuelto. Un mensaje, una duda, una idea a medio formar — te digo si lo puedo tomar.</p>
+  <a href="https://wa.me/5214425834043" target="_blank" rel="noopener" class="cta cta-primary"><i class="fa-brands fa-whatsapp"></i> Mándame un WhatsApp</a>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-name">impulso.digital</span>
+      <span>Querétaro, México · Est. 2026</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/bermudi" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/bermudi/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://bsky.app/profile/bermudi.dev" target="_blank" rel="noopener">Bluesky</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

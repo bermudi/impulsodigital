@@ -1,0 +1,15 @@
+{
+  "name": "impulsodigital",
+  "version": "1.0.0",
+  "description": "Impulso Digital — Sitios y sistemas que trabajan por ti. Commercial portfolio.",
+  "scripts": {
+    "dev": "eleventy --serve",
+    "start": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "author": "Daniel Bermúdez",
+  "license": "ISC",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1"
+  }
+}

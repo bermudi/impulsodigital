@@ -1,0 +1,87 @@
+---
+layout: base.njk
+title: "Descripciones con IA — Impulso Digital"
+description: "Dame tu producto. Te genero copy de venta en español — demo real de integración con IA."
+permalink: /herramientas/ia/index.html
+---
+
+<div class="wrap" style="padding-top: 3rem; padding-bottom: 4rem;">
+  <a href="/" style="font-family:'IBM Plex Mono',monospace;font-size:0.76rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--accent);text-decoration:none;">← Impulso Digital</a>
+
+  <div style="margin-top: 2.5rem; max-width: 720px;">
+    <div class="section-flag" style="margin-bottom: 2rem;">
+      <span>§ Herramienta — IA</span>
+      <span class="page">demo en vivo</span>
+    </div>
+
+    <h1 style="font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2rem,5vw,3.4rem);line-height:0.95;letter-spacing:-0.02em;margin-bottom:1rem;">Descripciones que <em style="font-style:italic;color:var(--accent);font-weight:400;">venden</em>.</h1>
+    <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:1.2rem;color:var(--ink-dim);line-height:1.45;margin-bottom:2rem;">Dame el nombre de un producto y un detalle. Te genero tres versiones de copy en español de México — para WhatsApp, Instagram y web. Demo real de lo que construyo cuando integro IA en un negocio.</p>
+
+    <form id="ia-form" style="margin-bottom:2rem;">
+      <label style="display:block;font-family:'IBM Plex Mono',monospace;font-size:0.74rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-muted);margin-bottom:0.4rem;">Producto</label>
+      <input type="text" id="product" name="product" placeholder="ej. Miel de azahar orgánica" required maxlength="100" style="display:block;width:100%;padding:0.85rem 1rem;font-family:'IBM Plex Mono',monospace;font-size:0.95rem;border:1px solid var(--rule);background:var(--paper);color:var(--ink);border-radius:0;margin-bottom:1.2rem;">
+
+      <label style="display:block;font-family:'IBM Plex Mono',monospace;font-size:0.74rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink-muted);margin-bottom:0.4rem;">Detalle (opcional)</label>
+      <input type="text" id="spec" name="spec" placeholder="ej. frasco de 250ml, producción familiar en Jalisco" maxlength="300" style="display:block;width:100%;padding:0.85rem 1rem;font-family:'IBM Plex Mono',monospace;font-size:0.95rem;border:1px solid var(--rule);background:var(--paper);color:var(--ink);border-radius:0;margin-bottom:1.2rem;">
+
+      <button type="submit" style="padding:0.85rem 1.6rem;font-family:'IBM Plex Mono',monospace;font-size:0.82rem;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;background:var(--ink);color:var(--paper);border:none;cursor:pointer;border-radius:0;">Generar copy →</button>
+    </form>
+
+    <div id="result" style="min-height: 4rem;"></div>
+  </div>
+</div>
+
+<script>
+const form = document.getElementById('ia-form');
+const result = document.getElementById('result');
+const btn = form.querySelector('button');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const product = document.getElementById('product').value.trim();
+  const spec = document.getElementById('spec').value.trim();
+  if (!product) return;
+
+  btn.disabled = true;
+  btn.textContent = 'Generando…';
+  result.innerHTML = '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:0.85rem;color:var(--ink-muted);padding:1rem 0;">Escribiendo copy…</div>';
+
+  try {
+    const res = await fetch('/api/ia', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ product, spec, tone: 'cercano' }),
+    });
+    const data = await res.json();
+    renderResult(data);
+  } catch (err) {
+    result.innerHTML = '<div style="color:var(--accent);padding:1rem 0;">No pude completar la generación. Intenta de nuevo.</div>';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Generar copy →';
+  }
+});
+
+function renderResult(d) {
+  if (d.error) {
+    result.innerHTML = `<div style="padding:1rem;border:1px solid var(--accent);color:var(--accent);font-family:'IBM Plex Mono',monospace;font-size:0.9rem;">✗ ${d.error}</div>`;
+    return;
+  }
+
+  // Render the markdown-ish text (bold + line breaks) safely
+  const copy = d.copy
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/\*\*(.+?)\*\*/g, '<strong style="font-family:\'IBM Plex Mono\',monospace;font-size:0.74rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--accent);">$1</strong>')
+    .replace(/\n/g, '<br>');
+
+  let html = `<div style="padding:1.5rem;border:1px solid var(--rule);background:rgba(178,36,31,0.02);margin-bottom:1.5rem;font-size:0.96rem;line-height:1.6;color:var(--ink);">${copy}</div>`;
+
+  html += `<div style="font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--ink-muted);margin-bottom:2rem;">Modelo: ${d.model}</div>`;
+
+  html += `<div style="padding:1.2rem;border:1px dashed var(--rule-soft);font-size:0.9rem;color:var(--ink-dim);line-height:1.5;">
+    Esto es una fracción de lo que construyo — un modelo, un prompt, una integración. Para un negocio real, conecto IA a tu inventario, tus FAQs, tus procesos. No demos de juguete. <a href="/#contacto" style="color:var(--accent);">Hablemos →</a>
+  </div>`;
+
+  result.innerHTML = html;
+}
+</script>

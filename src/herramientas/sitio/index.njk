@@ -1,0 +1,89 @@
+---
+layout: base.njk
+title: "Diagnóstico de sitio — Impulso Digital"
+description: "Pon tu URL. Reviso meta tags, mobile, HTTPS, peso de página. Te digo qué está mal y cómo se arregla."
+permalink: /herramientas/sitio/index.html
+---
+
+<div class="wrap" style="padding-top: 3rem; padding-bottom: 4rem;">
+  <a href="/" style="font-family:'IBM Plex Mono',monospace;font-size:0.76rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--accent);text-decoration:none;">← Impulso Digital</a>
+
+  <div style="margin-top: 2.5rem; max-width: 720px;">
+    <div class="section-flag" style="margin-bottom: 2rem;">
+      <span>§ Herramienta — Sitio</span>
+      <span class="page">gratis, sin registro</span>
+    </div>
+
+    <h1 style="font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2rem,5vw,3.4rem);line-height:0.95;letter-spacing:-0.02em;margin-bottom:1rem;">¿Tu sitio está <em style="font-style:italic;color:var(--accent);font-weight:400;">en forma</em>?</h1>
+    <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:1.2rem;color:var(--ink-dim);line-height:1.45;margin-bottom:2rem;">Pon tu URL (ej. mitienda.com). Reviso HTTPS, título, descripción, mobile, datos estructurados y peso. Te digo qué está bien, qué está mal, y qué cuesta arreglarlo.</p>
+
+    <form id="sitio-form" style="display:flex;gap:0.6rem;margin-bottom:2rem;flex-wrap:wrap;">
+      <input type="text" id="url" name="url" placeholder="mitienda.com" required style="flex:1;min-width:240px;padding:0.85rem 1rem;font-family:'IBM Plex Mono',monospace;font-size:0.95rem;border:1px solid var(--rule);background:var(--paper);color:var(--ink);border-radius:0;">
+      <button type="submit" style="padding:0.85rem 1.6rem;font-family:'IBM Plex Mono',monospace;font-size:0.82rem;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;background:var(--ink);color:var(--paper);border:none;cursor:pointer;border-radius:0;">Diagnosticar →</button>
+    </form>
+
+    <div id="result" style="min-height: 4rem;"></div>
+  </div>
+</div>
+
+<script>
+const form = document.getElementById('sitio-form');
+const result = document.getElementById('result');
+const btn = form.querySelector('button');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const url = document.getElementById('url').value.trim();
+  if (!url) return;
+
+  btn.disabled = true;
+  btn.textContent = 'Diagnosticando…';
+  result.innerHTML = '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:0.85rem;color:var(--ink-muted);padding:1rem 0;">Cargando el sitio y revisando…</div>';
+
+  try {
+    const res = await fetch('/api/sitio', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ url }),
+    });
+    const data = await res.json();
+    renderResult(data);
+  } catch (err) {
+    result.innerHTML = '<div style="color:var(--accent);padding:1rem 0;">No pude completar el diagnóstico. Intenta de nuevo.</div>';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Diagnosticar →';
+  }
+});
+
+function renderResult(d) {
+  if (d.error) {
+    result.innerHTML = `<div style="padding:1rem;border:1px solid var(--accent);color:var(--accent);font-family:'IBM Plex Mono',monospace;font-size:0.9rem;">✗ ${d.error}</div>`;
+    return;
+  }
+
+  let html = `<div style="padding:1.3rem;border:1px solid var(--rule);background:rgba(178,36,31,0.03);margin-bottom:1.5rem;font-family:'Playfair Display',serif;font-size:1.15rem;line-height:1.4;">${d.summary}</div>`;
+
+  html += `<div style="font-family:'IBM Plex Mono',monospace;font-size:0.76rem;color:var(--ink-muted);margin-bottom:1rem;">URL revisada: ${d.finalUrl || d.url} · HTTP ${d.status} · ${Math.round(d.bytes/1024)} KB · ${d.loadMs}ms</div>`;
+
+  html += '<div style="border-top:2px solid var(--ink);padding-top:1rem;">';
+  html += '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:1rem;">Resultado por categoría</div>';
+
+  for (const c of d.checks) {
+    const mark = c.ok === true ? '✓' : c.ok === false ? '✗' : '?';
+    const color = c.ok === true ? 'var(--ink)' : c.ok === false ? 'var(--accent)' : 'var(--ink-muted)';
+    html += `<div style="display:grid;grid-template-columns:24px 130px 1fr;gap:0.8rem;padding:0.7rem 0;border-bottom:1px solid var(--rule-soft);align-items:start;">
+      <span style="color:${color};font-weight:700;font-size:1rem;">${mark}</span>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-muted);">${c.label}</span>
+      <span style="font-size:0.88rem;color:var(--ink-dim);line-height:1.45;">${c.detail}</span>
+    </div>`;
+  }
+  html += '</div>';
+
+  html += `<div style="margin-top:2rem;padding:1.2rem;border:1px dashed var(--rule-soft);font-size:0.9rem;color:var(--ink-dim);line-height:1.5;">
+    ¿Te salieron cosas en rojo? Eso es lo que arreglo para negocios — sitios que cargan rápido, se ven bien en celular, y Google entiende. <a href="/#contacto" style="color:var(--accent);">Hablemos →</a>
+  </div>`;
+
+  result.innerHTML = html;
+}
+</script>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impulso Digital — Sitios y sistemas que trabajan por ti</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Rubik+Glitch&family=Electrolize&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css">
+<style>
+/* ============================================================
+   Mockup 01 — "Neón"
+   Direct port of bermudi.dev DNA, rebranded as agency.
+   Dark bg, purple-magenta gradient, 3D tile grid, glass cards.
+   ============================================================ */
+:root {
+  --red-rgb: 248 113 113;
+  --blue-rgb: 56 189 248;
+  --green-rgb: 74 222 128;
+  --yellow-rgb: 253 224 71;
+  --background-rgb: 5 5 8;
+  --surface-rgb: 15 15 22;
+  --text-rgb: 240 240 245;
+  --text-dim-rgb: 170 170 185;
+  --text-muted-rgb: 120 120 140;
+  --accent-1: #8a2be2;
+  --accent-2: #d946ef;
+  --accent-3: #ff00ff;
+  --maxw: 1200px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  min-height: 100vh;
+  background: rgb(var(--background-rgb));
+  color: rgb(var(--text-rgb));
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* 3D tile grid background */
+#tile-grid {
+  position: fixed; inset: 0; z-index: 0;
+  width: 100vw; height: 100vh;
+  display: grid;
+  grid-template-rows: repeat(28, 1fr);
+  grid-template-columns: repeat(28, 1fr);
+  transform: rotateX(32deg) rotateY(-4deg) rotateZ(18deg) scale(1.6);
+  transform-origin: center center;
+  pointer-events: auto;
+  opacity: 0.5;
+  transition: opacity 0.6s ease;
+}
+#tile-grid.dim { opacity: 0.2; }
+.tile { border: 1px solid rgba(255,255,255,0.08); transition: background-color 1400ms ease, box-shadow 1400ms ease; }
+.tile:hover { transition-duration: 0ms; }
+.tile:nth-child(4n):hover { background-color: rgb(var(--red-rgb) / 0.35); }
+.tile:nth-child(4n+1):hover { background-color: rgb(var(--blue-rgb) / 0.35); }
+.tile:nth-child(4n+2):hover { background-color: rgb(var(--green-rgb) / 0.35); }
+.tile:nth-child(4n+3):hover { background-color: rgb(var(--yellow-rgb) / 0.35); }
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: 1;
+  background:
+    radial-gradient(ellipse at 50% 0%, transparent 0%, rgb(var(--background-rgb) / 0.6) 60%),
+    linear-gradient(180deg, rgb(var(--background-rgb) / 0.4) 0%, rgb(var(--background-rgb) / 0.75) 40%, rgb(var(--background-rgb) / 0.92) 100%);
+  pointer-events: none;
+}
+
+@keyframes purpleShift {
+  0% { background-position: 0% 50%; filter: hue-rotate(0deg); }
+  50% { background-position: 100% 50%; filter: hue-rotate(30deg); }
+  100% { background-position: 0% 50%; filter: hue-rotate(0deg); }
+}
+.brand h1 {
+  position: relative; z-index: 2;
+  font-family: 'Rubik Glitch', system-ui;
+  font-weight: 400; letter-spacing: 0.04em;
+  background: linear-gradient(45deg, #4a0070, #6a0dad, #8a2be2, #9633ff, #b847ff, #c92bff, #d946ef, #e336ff, #ff00ff, #d946ef, #8a2be2);
+  background-size: 300% auto;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: purpleShift 8s ease infinite;
+}
+
+/* Header */
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(14px) saturate(140%);
+  background: rgba(5,5,8,0.55);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.header-inner { max-width: var(--maxw); margin: 0 auto; padding: 0.9rem 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.brand { text-decoration: none; display: inline-block; }
+.brand h1 { font-size: 1.3rem; line-height: 1; }
+.site-nav { display: flex; align-items: center; gap: 1.5rem; font-family: 'Electrolize', sans-serif; font-size: 0.9rem; }
+.site-nav a { color: rgb(var(--text-dim-rgb)); text-decoration: none; letter-spacing: 0.02em; transition: color 0.2s ease; }
+.site-nav a:hover { color: rgb(var(--text-rgb)); }
+.site-nav .nav-cta {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.5rem 1rem; border: 1px solid rgba(217,70,239,0.4);
+  border-radius: 999px; color: var(--accent-2);
+  background: rgba(217,70,239,0.08);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.site-nav .nav-cta:hover { background: rgba(217,70,239,0.2); border-color: rgba(217,70,239,0.7); }
+
+main { position: relative; z-index: 2; }
+section { padding: 6rem 1.5rem; }
+.section-head { max-width: var(--maxw); margin: 0 auto 3.5rem; }
+.section-tag {
+  display: inline-block; font-family: 'Electrolize', sans-serif;
+  font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--accent-2); margin-bottom: 1rem;
+}
+.section-head h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 0.8rem; }
+.section-lede { color: rgb(var(--text-dim-rgb)); font-size: 1.05rem; max-width: 560px; }
+
+/* Hero */
+.hero { min-height: 88vh; display: flex; align-items: center; padding: 5rem 1.5rem 7rem; }
+.hero-card {
+  max-width: 760px; margin: 0 auto; text-align: center;
+  padding: 3rem 2.5rem;
+  background: rgba(10,10,16,0.6);
+  backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 80px rgba(138,43,226,0.08);
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  font-family: 'Electrolize', sans-serif; font-size: 0.82rem; letter-spacing: 0.06em;
+  color: rgb(var(--text-dim-rgb));
+  padding: 0.4rem 0.9rem; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  margin-bottom: 1.8rem;
+}
+.status-dot { width: 8px; height: 8px; border-radius: 50%; background: rgb(var(--green-rgb)); box-shadow: 0 0 8px rgb(var(--green-rgb) / 0.8); animation: pulse 2s ease infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.55; transform: scale(0.85); } }
+.hero-headline { font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 1.4rem; }
+.hero-headline em { font-style: normal; background: linear-gradient(45deg, var(--accent-1), var(--accent-2), var(--accent-3)); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; color: transparent; animation: purpleShift 8s ease infinite; }
+.hero-sub { font-size: 1.15rem; color: rgb(var(--text-dim-rgb)); max-width: 540px; margin: 0 auto 2.4rem; line-height: 1.65; }
+.hero-cta-row { display: flex; gap: 0.9rem; justify-content: center; flex-wrap: wrap; }
+
+/* CTAs */
+.cta { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'Electrolize', sans-serif; font-size: 0.95rem; letter-spacing: 0.02em; padding: 0.85rem 1.6rem; border-radius: 12px; text-decoration: none; transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; cursor: pointer; }
+.cta-primary { background: linear-gradient(135deg, var(--accent-1), var(--accent-2)); color: white; box-shadow: 0 8px 24px rgba(168,85,247,0.35), 0 0 0 1px rgba(255,255,255,0.1) inset; }
+.cta-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(168,85,247,0.5), 0 0 0 1px rgba(255,255,255,0.2) inset; }
+.cta-ghost { color: rgb(var(--text-rgb)); border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.03); }
+.cta-ghost:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.3); }
+.cta-large { font-size: 1.05rem; padding: 1rem 2rem; }
+
+/* Work grid */
+.work-grid { max-width: var(--maxw); margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.4rem; }
+.work-card { position: relative; display: flex; flex-direction: column; gap: 0.7rem; padding: 1.8rem; background: rgba(15,15,22,0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; text-decoration: none; color: inherit; overflow: hidden; transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease; }
+.work-card::before { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, transparent 60%, rgba(217,70,239,0.06)); opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
+.work-card:hover { transform: translateY(-4px); border-color: rgba(217,70,239,0.35); box-shadow: 0 16px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(217,70,239,0.2); }
+.work-card:hover::before { opacity: 1; }
+.card-head { display: flex; align-items: center; justify-content: space-between; font-family: 'Electrolize', sans-serif; font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.card-tag { color: rgb(var(--text-muted-rgb)); }
+.card-status { display: inline-flex; align-items: center; gap: 0.35rem; }
+.card-status.live { color: rgb(var(--green-rgb)); }
+.card-status.archived { color: rgb(var(--text-muted-rgb)); }
+.dot-live { width: 7px; height: 7px; border-radius: 50%; background: rgb(var(--green-rgb)); box-shadow: 0 0 6px rgb(var(--green-rgb) / 0.7); animation: pulse 2s ease infinite; }
+.work-card h3 { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.01em; }
+.work-card p { color: rgb(var(--text-dim-rgb)); font-size: 0.94rem; line-height: 1.6; flex-grow: 1; }
+.card-url { font-family: 'Electrolize', sans-serif; font-size: 0.82rem; color: var(--accent-2); margin-top: 0.4rem; }
+.work-card-cta { background: rgba(74,0,112,0.25); border: 1px dashed rgba(217,70,239,0.4); align-items: center; text-align: center; }
+.work-card-cta h3 { color: var(--accent-2); }
+
+/* Lanes */
+.lanes { background: linear-gradient(180deg, transparent, rgba(15,15,22,0.5) 30%, transparent); }
+.lane-list { max-width: var(--maxw); margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
+.lane { display: grid; grid-template-columns: 80px 1fr; gap: 1.5rem; align-items: start; padding: 1.8rem; background: rgba(10,10,16,0.55); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; transition: border-color 0.25s ease, transform 0.25s ease; }
+.lane:hover { border-color: rgba(138,43,226,0.4); transform: translateX(4px); }
+.lane-num { font-family: 'Rubik Glitch', sans-serif; font-size: 2.2rem; background: linear-gradient(135deg, var(--accent-1), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; line-height: 1; }
+.lane-body h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+.lane-body h3 i { color: var(--accent-2); margin-right: 0.5rem; }
+.lane-body p { color: rgb(var(--text-dim-rgb)); font-size: 0.98rem; }
+
+/* Tools preview */
+.tools-preview { max-width: var(--maxw); margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; }
+.tool-card { padding: 1.6rem; background: rgba(10,10,16,0.6); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; transition: border-color 0.25s ease, transform 0.25s ease; }
+.tool-card:hover { border-color: rgba(217,70,239,0.4); transform: translateY(-3px); }
+.tool-card i.tool-icon { font-size: 1.6rem; color: var(--accent-2); margin-bottom: 0.8rem; display: block; }
+.tool-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.4rem; }
+.tool-card p { color: rgb(var(--text-dim-rgb)); font-size: 0.9rem; margin-bottom: 0.8rem; }
+.tool-card .tool-link { font-family: 'Electrolize', sans-serif; font-size: 0.8rem; color: var(--accent-2); text-decoration: none; }
+
+/* Contact */
+.contact { text-align: center; padding: 7rem 1.5rem; }
+.contact-inner { max-width: 620px; margin: 0 auto; padding: 3rem 2rem; background: rgba(10,10,16,0.65); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+.contact h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 1rem; }
+.contact p { color: rgb(var(--text-dim-rgb)); margin-bottom: 2rem; }
+
+/* Footer */
+.site-footer { position: relative; z-index: 2; border-top: 1px solid rgba(255,255,255,0.06); padding: 2rem 1.5rem; background: rgba(5,5,8,0.8); backdrop-filter: blur(10px); }
+.footer-inner { max-width: var(--maxw); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.footer-brand { display: flex; flex-direction: column; gap: 0.2rem; }
+.footer-name { font-family: 'Rubik Glitch', sans-serif; font-size: 0.95rem; background: linear-gradient(45deg, var(--accent-1), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.footer-loc { font-family: 'Electrolize', sans-serif; font-size: 0.8rem; color: rgb(var(--text-muted-rgb)); }
+.footer-links { display: flex; gap: 0.9rem; }
+.footer-links a { display: inline-flex; width: 38px; height: 38px; align-items: center; justify-content: center; border-radius: 50%; color: rgb(var(--text-dim-rgb)); text-decoration: none; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); transition: all 0.25s ease; }
+.footer-links a:hover { color: white; background: rgba(217,70,239,0.18); border-color: rgba(217,70,239,0.4); transform: translateY(-2px); }
+
+/* Mockup label badge */
+.mockup-badge { position: fixed; top: 70px; right: 16px; z-index: 100; font-family: 'Electrolize', sans-serif; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-2); background: rgba(10,10,16,0.9); border: 1px solid rgba(217,70,239,0.4); padding: 0.4rem 0.8rem; border-radius: 8px; }
+
+@media (max-width: 768px) {
+  section { padding: 4rem 1.2rem; }
+  .site-nav a:not(.nav-cta) { display: none; }
+  .hero-cta-row { flex-direction: column; align-items: stretch; }
+  .lane { grid-template-columns: 1fr; gap: 0.5rem; }
+  #tile-grid { transform: rotateX(32deg) rotateY(-4deg) rotateZ(18deg) scale(2.2); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .brand h1, .hero-headline em, .status-dot, .dot-live { animation: none !important; }
+  .tile { transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="mockup-badge">Mockup 01 · Neón</div>
+
+<div id="tile-grid" aria-hidden="true">
+  <div class="tile"></div>
+</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="brand"><h1>impulso digital</h1></a>
+    <nav class="site-nav">
+      <a href="#trabajo">Trabajo</a>
+      <a href="#que-hago">Qué hago</a>
+      <a href="#herramientas">Herramientas</a>
+      <a href="https://wa.me/5214425834043" target="_blank" rel="noopener" class="nav-cta"><i class="fa-brands fa-whatsapp"></i> Hablemos</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="hero-card">
+      <div class="hero-eyebrow"><span class="status-dot"></span> Disponible · Querétaro, México</div>
+      <h2 class="hero-headline">Sitios y sistemas que <em>trabajan por ti</em>.</h2>
+      <p class="hero-sub">No diseñamos bonito que no sirve. Construimos webs que traen clientes y herramientas que se comen lo aburrido de tu día.</p>
+      <div class="hero-cta-row">
+        <a class="cta cta-primary" href="https://wa.me/5214425834043" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Cuéntame qué necesitas</a>
+        <a class="cta cta-ghost" href="#trabajo">Ver trabajo</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="trabajo" class="work">
+    <div class="section-head">
+      <span class="section-tag">01 — Trabajo real, en vivo</span>
+      <h2>No mockups. No "próximamente".</h2>
+      <p class="section-lede">Esto está live, funcionando, con clientes reales usándolo.</p>
+    </div>
+    <div class="work-grid">
+      <a class="work-card" href="https://www.sudamericanlumber.com/" target="_blank" rel="noopener">
+        <div class="card-head"><span class="card-tag">Exportación</span><span class="card-status live"><span class="dot-live"></span> live</span></div>
+        <h3>Sud American Lumber</h3>
+        <p>Catálogo bilingüe para un exportador de maderas finas peruanas. Diseñado para venta internacional.</p>
+        <span class="card-url">sudamericanlumber.com <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+      </a>
+      <a class="work-card" href="https://www.posadarealchiapas.com.mx/" target="_blank" rel="noopener">
+        <div class="card-head"><span class="card-tag">Hospitalidad</span><span class="card-status live"><span class="dot-live"></span> live</span></div>
+        <h3>Posada Real de Chiapas</h3>
+        <p>Hotel boutique en San Cristóbal de las Casas. CMS para que el staff gestione todo sin tocar código.</p>
+        <span class="card-url">posadarealchiapas.com.mx <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+      </a>
+      <a class="work-card" href="https://lasfresas.com.mx/" target="_blank" rel="noopener">
+        <div class="card-head"><span class="card-tag">E-commerce</span><span class="card-status live"><span class="dot-live"></span> live</span></div>
+        <h3>Las Fresas</h3>
+        <p>Tienda de postres en Dolores Hidalgo. Carrito, galería y CTAs flotantes. Pensado para pedir desde el celular.</p>
+        <span class="card-url">lasfresas.com.mx <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+      </a>
+      <a class="work-card" href="#">
+        <div class="card-head"><span class="card-tag">Seguridad · acceso</span><span class="card-status archived">case</span></div>
+        <h3>QRO Seguro</h3>
+        <p>Sistema de control de acceso con QR para comunidades privadas. Structured data y SEO local completo.</p>
+        <span class="card-url">ver caso <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+      </a>
+      <a class="work-card" href="#">
+        <div class="card-head"><span class="card-tag">Cybersecurity · bilingual</span><span class="card-status archived">case</span></div>
+        <h3>CipherShield Security</h3>
+        <p>Sitio bilingüe (ES/EN) para firma de ciberseguridad. Astro + React + MDX, con blog técnico.</p>
+        <span class="card-url">ver caso <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+      </a>
+      <a class="work-card work-card-cta" href="https://wa.me/5214425834043" target="_blank" rel="noopener">
+        <div class="card-head"><span class="card-tag">¿El siguiente?</span></div>
+        <h3>Tu proyecto</h3>
+        <p>Cuéntame qué está roto, lento o ausente. Te digo en una llamada si lo puedo resolver, y en cuánto.</p>
+        <span class="card-url">mandar WhatsApp <i class="fa-brands fa-whatsapp"></i></span>
+      </a>
+    </div>
+  </section>
+
+  <section id="que-hago" class="lanes">
+    <div class="section-head">
+      <span class="section-tag">02 — En lo que somos buenos</span>
+      <h2>Tres cosas, no veinte.</h2>
+    </div>
+    <div class="lane-list">
+      <article class="lane">
+        <div class="lane-num">01</div>
+        <div class="lane-body">
+          <h3><i class="fa-solid fa-window-maximize"></i> Sitios que trabajan</h3>
+          <p>No "tener presencia en internet". Sitios que capturan clientes, muestran tu trabajo, y no te dan dolores de cabeza cada mes.</p>
+        </div>
+      </article>
+      <article class="lane">
+        <div class="lane-num">02</div>
+        <div class="lane-body">
+          <h3><i class="fa-solid fa-gears"></i> Herramientas para tu negocio</h3>
+          <p>Verificadores, diagnósticos, automatizaciones. Cosas que de verdad ahorran horas, no demos de juguete.</p>
+        </div>
+      </article>
+      <article class="lane">
+        <div class="lane-num">03</div>
+        <div class="lane-body">
+          <h3><i class="fa-solid fa-brain"></i> IA que sirve para algo</h3>
+          <p>No la moda, no el hype. Lo que de verdad te ahorra horas: asistentes internos, herramientas a medida, procesos.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="herramientas">
+    <div class="section-head">
+      <span class="section-tag">03 — Pruébalo gratis</span>
+      <h2>Herramientas en vivo.</h2>
+      <p class="section-lede">No te lo contamos — lo mostramos. Usa estas herramientas ahora mismo, sin registro.</p>
+    </div>
+    <div class="tools-preview">
+      <div class="tool-card">
+        <i class="fa-solid fa-envelope-circle-check tool-icon"></i>
+        <h3>Verificador de correo</h3>
+        <p>Pon tu dominio. Te decimos si tus correos están llegando — MX, SPF, DKIM, DMARC en lenguaje claro.</p>
+        <a href="#" class="tool-link">Probar →</a>
+      </div>
+      <div class="tool-card">
+        <i class="fa-solid fa-gauge-high tool-icon"></i>
+        <h3>Diagnóstico de sitio</h3>
+        <p>Pon tu URL. Meta tags, mobile, HTTPS, peso de página. "Tu sitio carga lento", no jerga.</p>
+        <a href="#" class="tool-link">Probar →</a>
+      </div>
+      <div class="tool-card">
+        <i class="fa-solid fa-wand-magic-sparkles tool-icon"></i>
+        <h3>Descripciones con IA</h3>
+        <p>Dame tu producto. Te genero copy de venta en español — demo real de integración con IA.</p>
+        <a href="#" class="tool-link">Probar →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact">
+    <div class="contact-inner">
+      <h2>¿Platicamos?</h2>
+      <p>No necesitas tener todo resuelto. Un mensaje, una duda, una idea a medio formar — te digo si lo puedo tomar.</p>
+      <a class="cta cta-large cta-primary" href="https://wa.me/5214425834043" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Mándame un WhatsApp</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-name">impulso digital</span>
+      <span class="footer-loc">Querétaro, México</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/bermudi" target="_blank" rel="noopener" title="GitHub"><i class="fa-brands fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/bermudi/" target="_blank" rel="noopener" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="https://bsky.app/profile/bermudi.dev" target="_blank" rel="noopener" title="Bluesky"><i class="fa-brands fa-bluesky"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Generate the 28x28 tile grid
+(function(){
+  var grid = document.getElementById('tile-grid');
+  if (!grid) return;
+  var frag = document.createDocumentFragment();
+  for (var i = 0; i < 28*28; i++) {
+    var t = document.createElement('div');
+    t.className = 'tile';
+    frag.appendChild(t);
+  }
+  grid.appendChild(frag);
+  // dim on scroll
+  window.addEventListener('scroll', function(){
+    if (window.scrollY > 200) grid.classList.add('dim');
+    else grid.classList.remove('dim');
+  });
+})();
+</script>
+</body>
+</html>

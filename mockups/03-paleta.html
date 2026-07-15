@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impulso Digital — Sitios y sistemas que trabajan por ti</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css">
+<style>
+/* ============================================================
+   Mockup 03 — "Paleta"
+   Bold editorial Mexican. Anton condensed display, saturated
+   accents (tropical green, mango, magenta) on near-black.
+   Asymmetric, high personality, memorable.
+   ============================================================ */
+:root {
+  --bg: #0d0a08;
+  --surface: #161210;
+  --surface-2: #1f1916;
+  --ink: #f7f2ec;
+  --ink-dim: #b8a99c;
+  --ink-muted: #7a6d62;
+  --mango: #ffb627;
+  --tropical: #00d97e;
+  --magenta: #ff3d8b;
+  --border: rgba(255,182,39,0.14);
+  --maxw: 1240px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--ink); font-family: 'Inter', system-ui, sans-serif; font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+
+/* Header */
+.site-header { position: sticky; top: 0; z-index: 50; background: rgba(13,10,8,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+.header-inner { max-width: var(--maxw); margin: 0 auto; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.brand { text-decoration: none; display: flex; align-items: center; gap: 0.6rem; }
+.brand-mark { display: flex; gap: 3px; }
+.brand-mark span { width: 10px; height: 18px; display: block; }
+.brand-mark span:nth-child(1) { background: var(--mango); }
+.brand-mark span:nth-child(2) { background: var(--tropical); }
+.brand-mark span:nth-child(3) { background: var(--magenta); }
+.brand h1 { font-family: 'Anton', sans-serif; font-size: 1.3rem; font-weight: 400; letter-spacing: 0.02em; text-transform: uppercase; color: var(--ink); }
+.site-nav { display: flex; align-items: center; gap: 1.8rem; font-family: 'Space Mono', monospace; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.site-nav a { color: var(--ink-dim); text-decoration: none; transition: color 0.2s ease; }
+.site-nav a:hover { color: var(--mango); }
+.site-nav .nav-cta { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.55rem 1.1rem; background: var(--mango); color: var(--bg); border-radius: 0; font-weight: 700; transition: background 0.2s ease, transform 0.2s ease; clip-path: polygon(0 0, 100% 0, 95% 100%, 0 100%); padding-right: 1.4rem; }
+.site-nav .nav-cta:hover { background: var(--tropical); transform: translateX(3px); }
+
+main { position: relative; }
+section { padding: 6rem 1.5rem; }
+.section-head { max-width: var(--maxw); margin: 0 auto 3.5rem; }
+.section-tag { display: inline-flex; align-items: center; gap: 0.6rem; font-family: 'Space Mono', monospace; font-size: 0.76rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mango); margin-bottom: 1rem; }
+.section-tag::before { content: ""; width: 24px; height: 2px; background: var(--mango); }
+.section-head h2 { font-family: 'Anton', sans-serif; font-size: clamp(2.4rem, 6vw, 4.5rem); font-weight: 400; letter-spacing: -0.01em; line-height: 0.95; text-transform: uppercase; margin-bottom: 1rem; }
+.section-head h2 .hl-mango { color: var(--mango); }
+.section-head h2 .hl-tropical { color: var(--tropical); }
+.section-head h2 .hl-magenta { color: var(--magenta); }
+.section-lede { color: var(--ink-dim); font-size: 1.1rem; max-width: 560px; }
+
+/* Hero — asymmetric, oversized type */
+.hero { padding: 4rem 1.5rem 5rem; position: relative; overflow: hidden; }
+.hero-inner { max-width: var(--maxw); margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr; gap: 3rem; align-items: end; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 0.6rem; font-family: 'Space Mono', monospace; font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-dim); margin-bottom: 2rem; }
+.status-dot { width: 10px; height: 10px; background: var(--tropical); box-shadow: 0 0 12px var(--tropical); animation: pulse 2s ease infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
+.hero-headline { font-family: 'Anton', sans-serif; font-size: clamp(3rem, 9vw, 7rem); font-weight: 400; line-height: 0.9; letter-spacing: -0.02em; text-transform: uppercase; margin-bottom: 1.8rem; }
+.hero-headline .line { display: block; }
+.hero-sub { font-size: 1.2rem; color: var(--ink-dim); max-width: 460px; margin-bottom: 2.2rem; line-height: 1.5; }
+.hero-cta-row { display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap; }
+.hero-side { display: flex; flex-direction: column; gap: 1rem; align-items: flex-end; }
+.hero-stat { padding: 1.2rem 1.4rem; border: 1px solid var(--border); background: var(--surface); width: 100%; max-width: 280px; }
+.hero-stat .num { font-family: 'Anton', sans-serif; font-size: 2.8rem; line-height: 1; }
+.hero-stat .num.mango { color: var(--mango); }
+.hero-stat .num.tropical { color: var(--tropical); }
+.hero-stat .label { font-family: 'Space Mono', monospace; font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-muted); margin-top: 0.4rem; }
+
+/* CTAs */
+.cta { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'Space Mono', monospace; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.95rem 1.6rem; text-decoration: none; transition: all 0.2s ease; cursor: pointer; border: none; }
+.cta-primary { background: var(--mango); color: var(--bg); }
+.cta-primary:hover { background: var(--tropical); transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--magenta); }
+.cta-ghost { color: var(--ink); background: transparent; border: 2px solid var(--ink-dim); }
+.cta-ghost:hover { border-color: var(--mango); color: var(--mango); }
+.cta-large { font-size: 1rem; padding: 1.1rem 2.2rem; }
+
+/* Work grid — bold cards with color blocks */
+.work { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.work-grid { max-width: var(--maxw); margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.4rem; }
+.work-card { display: flex; flex-direction: column; background: var(--bg); border: 1px solid var(--border); text-decoration: none; color: inherit; overflow: hidden; transition: transform 0.25s ease, border-color 0.25s ease; position: relative; }
+.work-card:hover { transform: translateY(-6px); border-color: var(--mango); }
+.work-card-stripe { height: 6px; }
+.work-card:nth-child(1) .work-card-stripe { background: var(--mango); }
+.work-card:nth-child(2) .work-card-stripe { background: var(--tropical); }
+.work-card:nth-child(3) .work-card-stripe { background: var(--magenta); }
+.work-card:nth-child(4) .work-card-stripe { background: var(--ink-dim); }
+.work-card:nth-child(5) .work-card-stripe { background: var(--ink-dim); }
+.work-card:nth-child(6) .work-card-stripe { background: linear-gradient(90deg, var(--mango), var(--tropical), var(--magenta)); }
+.work-card-body { padding: 1.8rem; display: flex; flex-direction: column; gap: 0.7rem; flex-grow: 1; }
+.card-head { display: flex; align-items: center; justify-content: space-between; font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.card-tag { color: var(--ink-muted); }
+.card-status { display: inline-flex; align-items: center; gap: 0.35rem; }
+.card-status.live { color: var(--tropical); }
+.card-status.archived { color: var(--ink-muted); }
+.dot-live { width: 7px; height: 7px; background: var(--tropical); animation: pulse 2s ease infinite; }
+.work-card h3 { font-family: 'Anton', sans-serif; font-size: 1.6rem; font-weight: 400; letter-spacing: 0.01em; text-transform: uppercase; line-height: 1; }
+.work-card p { color: var(--ink-dim); font-size: 0.92rem; line-height: 1.55; flex-grow: 1; }
+.card-url { font-family: 'Space Mono', monospace; font-size: 0.8rem; color: var(--mango); margin-top: 0.3rem; }
+.work-card-cta { background: var(--surface-2); border: 1px dashed var(--mango); }
+.work-card-cta .work-card-body { align-items: center; text-align: center; }
+.work-card-cta h3 { color: var(--mango); }
+
+/* Lanes — numbered, offset */
+.lane-list { max-width: var(--maxw); margin: 0 auto; display: flex; flex-direction: column; gap: 0; }
+.lane { display: grid; grid-template-columns: 100px 1fr; gap: 2rem; align-items: start; padding: 2.2rem 0; border-top: 1px solid var(--border); transition: padding 0.25s ease; }
+.lane:last-child { border-bottom: 1px solid var(--border); }
+.lane:hover { padding-left: 1.5rem; }
+.lane-num { font-family: 'Anton', sans-serif; font-size: 3rem; font-weight: 400; line-height: 0.9; }
+.lane:nth-child(1) .lane-num { color: var(--mango); }
+.lane:nth-child(2) .lane-num { color: var(--tropical); }
+.lane:nth-child(3) .lane-num { color: var(--magenta); }
+.lane-body h3 { font-family: 'Anton', sans-serif; font-size: 1.5rem; font-weight: 400; text-transform: uppercase; margin-bottom: 0.5rem; }
+.lane-body h3 i { margin-right: 0.6rem; font-size: 0.85em; }
+.lane:nth-child(1) .lane-body h3 i { color: var(--mango); }
+.lane:nth-child(2) .lane-body h3 i { color: var(--tropical); }
+.lane:nth-child(3) .lane-body h3 i { color: var(--magenta); }
+.lane-body p { color: var(--ink-dim); font-size: 1rem; max-width: 620px; }
+
+/* Tools */
+.tools { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.tools-preview { max-width: var(--maxw); margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.4rem; }
+.tool-card { padding: 1.8rem; background: var(--bg); border: 1px solid var(--border); transition: transform 0.25s ease, border-color 0.25s ease; position: relative; }
+.tool-card::before { content: ""; position: absolute; top: 0; left: 0; width: 40px; height: 4px; }
+.tool-card:nth-child(1)::before { background: var(--mango); }
+.tool-card:nth-child(2)::before { background: var(--tropical); }
+.tool-card:nth-child(3)::before { background: var(--magenta); }
+.tool-card:hover { transform: translateY(-4px); border-color: var(--ink-dim); }
+.tool-icon { font-size: 1.8rem; margin-bottom: 1rem; display: block; }
+.tool-card:nth-child(1) .tool-icon { color: var(--mango); }
+.tool-card:nth-child(2) .tool-icon { color: var(--tropical); }
+.tool-card:nth-child(3) .tool-icon { color: var(--magenta); }
+.tool-card h3 { font-family: 'Anton', sans-serif; font-size: 1.3rem; font-weight: 400; text-transform: uppercase; margin-bottom: 0.4rem; }
+.tool-card p { color: var(--ink-dim); font-size: 0.92rem; margin-bottom: 1rem; }
+.tool-link { font-family: 'Space Mono', monospace; font-size: 0.8rem; color: var(--ink); text-decoration: none; text-transform: uppercase; letter-spacing: 0.08em; border-bottom: 2px solid currentColor; }
+.tool-card:nth-child(1) .tool-link { color: var(--mango); }
+.tool-card:nth-child(2) .tool-link { color: var(--tropical); }
+.tool-card:nth-child(3) .tool-link { color: var(--magenta); }
+
+/* Contact */
+.contact { text-align: center; padding: 8rem 1.5rem; position: relative; }
+.contact::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, rgba(255,182,39,0.06), transparent 60%); pointer-events: none; }
+.contact-inner { max-width: 680px; margin: 0 auto; position: relative; }
+.contact h2 { font-family: 'Anton', sans-serif; font-size: clamp(2.6rem, 7vw, 5rem); font-weight: 400; text-transform: uppercase; line-height: 0.95; margin-bottom: 1.2rem; }
+.contact h2 .hl-magenta { color: var(--magenta); }
+.contact p { color: var(--ink-dim); margin-bottom: 2.2rem; font-size: 1.15rem; }
+
+/* Footer */
+.site-footer { border-top: 1px solid var(--border); padding: 2.5rem 1.5rem; }
+.footer-inner { max-width: var(--maxw); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.footer-brand { display: flex; flex-direction: column; gap: 0.3rem; }
+.footer-name { font-family: 'Anton', sans-serif; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.footer-loc { font-family: 'Space Mono', monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-muted); }
+.footer-links { display: flex; gap: 0.6rem; }
+.footer-links a { display: inline-flex; width: 40px; height: 40px; align-items: center; justify-content: center; color: var(--ink-dim); text-decoration: none; border: 1px solid var(--border); transition: all 0.25s ease; }
+.footer-links a:hover { color: var(--mango); border-color: var(--mango); transform: translateY(-3px); }
+
+/* Mockup badge */
+.mockup-badge { position: fixed; top: 76px; right: 16px; z-index: 100; font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mango); background: var(--surface); border: 1px solid var(--mango); padding: 0.4rem 0.8rem; }
+
+@media (max-width: 860px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .hero-side { align-items: flex-start; flex-direction: row; }
+  .hero-stat { max-width: none; flex: 1; }
+  .site-nav a:not(.nav-cta) { display: none; }
+}
+@media (max-width: 768px) {
+  section { padding: 4rem 1.2rem; }
+  .hero-cta-row { flex-direction: column; align-items: stretch; }
+  .lane { grid-template-columns: 1fr; gap: 0.5rem; }
+  .hero-side { flex-direction: column; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .status-dot, .dot-live { animation: none !important; }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<div class="mockup-badge">Mockup 03 · Paleta</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="brand"><span class="brand-mark"><span></span><span></span><span></span></span><h1>impulso digital</h1></a>
+    <nav class="site-nav">
+      <a href="#trabajo">Trabajo</a>
+      <a href="#que-hago">Qué hago</a>
+      <a href="#herramientas">Herramientas</a>
+      <a href="https://wa.me/5214425834043" target="_blank" rel="noopener" class="nav-cta"><i class="fa-brands fa-whatsapp"></i> Hablemos</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-eyebrow"><span class="status-dot"></span> Disponible · Querétaro, México</div>
+        <h1 class="hero-headline">
+          <span class="line">Sitios y</span>
+          <span class="line">sistemas que</span>
+          <span class="line"><span class="hl-mango">trabajan</span> por ti.</span>
+        </h1>
+        <p class="hero-sub">No diseñamos bonito que no sirve. Construimos webs que traen clientes y herramientas que se comen lo aburrido de tu día.</p>
+        <div class="hero-cta-row">
+          <a class="cta cta-primary" href="https://wa.me/5214425834043" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Cuéntame qué necesitas</a>
+          <a class="cta cta-ghost" href="#trabajo">Ver trabajo</a>
+        </div>
+      </div>
+      <div class="hero-side">
+        <div class="hero-stat">
+          <div class="num mango">3</div>
+          <div class="label">sitios en vivo</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num tropical">0</div>
+          <div class="label">mockups</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="trabajo" class="work">
+    <div class="section-head">
+      <span class="section-tag">01 Trabajo real, en vivo</span>
+      <h2>No mockups.<br>No <span class="hl-magenta">"próximamente"</span>.</h2>
+      <p class="section-lede">Esto está live, funcionando, con clientes reales usándolo.</p>
+    </div>
+    <div class="work-grid">
+      <a class="work-card" href="https://www.sudamericanlumber.com/" target="_blank" rel="noopener">
+        <div class="work-card-stripe"></div>
+        <div class="work-card-body">
+          <div class="card-head"><span class="card-tag">Exportación</span><span class="card-status live"><span class="dot-live"></span> live</span></div>
+          <h3>Sud American Lumber</h3>
+          <p>Catálogo bilingüe para un exportador de maderas finas peruanas. Diseñado para venta internacional.</p>
+          <span class="card-url">sudamericanlumber.com →</span>
+        </div>
+      </a>
+      <a class="work-card" href="https://www.posadarealchiapas.com.mx/" target="_blank" rel="noopener">
+        <div class="work-card-stripe"></div>
+        <div class="work-card-body">
+          <div class="card-head"><span class="card-tag">Hospitalidad</span><span class="card-status live"><span class="dot-live"></span> live</span></div>
+          <h3>Posada Real de Chiapas</h3>
+          <p>Hotel boutique en San Cristóbal. CMS para que el staff gestione todo sin tocar código.</p>
+          <span class="card-url">posadarealchiapas.com.mx →</span>
+        </div>
+      </a>
+      <a class="work-card" href="https://lasfresas.com.mx/" target="_blank" rel="noopener">
+        <div class="work-card-stripe"></div>
+        <div class="work-card-body">
+          <div class="card-head"><span class="card-tag">E-commerce</span><span class="card-status live"><span class="dot-live"></span> live</span></div>
+          <h3>Las Fresas</h3>
+          <p>Tienda de postres en Dolores Hidalgo. Carrito, galería y CTAs flotantes para pedir desde el celular.</p>
+          <span class="card-url">lasfresas.com.mx →</span>
+        </div>
+      </a>
+      <a class="work-card" href="#">
+        <div class="work-card-stripe"></div>
+        <div class="work-card-body">
+          <div class="card-head"><span class="card-tag">Seguridad · acceso</span><span class="card-status archived">caso</span></div>
+          <h3>QRO Seguro</h3>
+          <p>Control de acceso con QR para comunidades privadas. Structured data y SEO local completo.</p>
+          <span class="card-url">ver caso →</span>
+        </div>
+      </a>
+      <a class="work-card" href="#">
+        <div class="work-card-stripe"></div>
+        <div class="work-card-body">
+          <div class="card-head"><span class="card-tag">Cybersecurity · bilingual</span><span class="card-status archived">caso</span></div>
+          <h3>CipherShield Security</h3>
+          <p>Sitio bilingüe (ES/EN) para firma de ciberseguridad. Astro + React + MDX, con blog técnico.</p>
+          <span class="card-url">ver caso →</span>
+        </div>
+      </a>
+      <a class="work-card work-card-cta" href="https://wa.me/5214425834043" target="_blank" rel="noopener">
+        <div class="work-card-stripe"></div>
+        <div class="work-card-body">
+          <div class="card-head"><span class="card-tag">¿El siguiente?</span></div>
+          <h3>Tu proyecto</h3>
+          <p>Cuéntame qué está roto, lento o ausente. Te digo en una llamada si lo puedo resolver.</p>
+          <span class="card-url">mandar WhatsApp →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section id="que-hago">
+    <div class="section-head">
+      <span class="section-tag">02 En lo que somos buenos</span>
+      <h2>Tres cosas,<br>no <span class="hl-mango">veinte</span>.</h2>
+    </div>
+    <div class="lane-list">
+      <article class="lane">
+        <div class="lane-num">01</div>
+        <div class="lane-body">
+          <h3><i class="fa-solid fa-window-maximize"></i> Sitios que trabajan</h3>
+          <p>No "tener presencia en internet". Sitios que capturan clientes, muestran tu trabajo, y no te dan dolores de cabeza cada mes.</p>
+        </div>
+      </article>
+      <article class="lane">
+        <div class="lane-num">02</div>
+        <div class="lane-body">
+          <h3><i class="fa-solid fa-gears"></i> Herramientas para tu negocio</h3>
+          <p>Verificadores, diagnósticos, automatizaciones. Cosas que de verdad ahorran horas, no demos de juguete.</p>
+        </div>
+      </article>
+      <article class="lane">
+        <div class="lane-num">03</div>
+        <div class="lane-body">
+          <h3><i class="fa-solid fa-brain"></i> IA que sirve para algo</h3>
+          <p>No la moda, no el hype. Lo que de verdad te ahorra horas: asistentes internos, herramientas a medida, procesos.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="herramientas" class="tools">
+    <div class="section-head">
+      <span class="section-tag">03 Pruébalo gratis</span>
+      <h2>Herramientas<br>en <span class="hl-tropical">vivo</span>.</h2>
+      <p class="section-lede">No te lo contamos — lo mostramos. Usa estas herramientas ahora mismo, sin registro.</p>
+    </div>
+    <div class="tools-preview">
+      <div class="tool-card">
+        <i class="fa-solid fa-envelope-circle-check tool-icon"></i>
+        <h3>Verificador de correo</h3>
+        <p>Pon tu dominio. Te decimos si tus correos llegan — MX, SPF, DKIM, DMARC en lenguaje claro.</p>
+        <a href="#" class="tool-link">Probar →</a>
+      </div>
+      <div class="tool-card">
+        <i class="fa-solid fa-gauge-high tool-icon"></i>
+        <h3>Diagnóstico de sitio</h3>
+        <p>Pon tu URL. Meta tags, mobile, HTTPS, peso de página. "Tu sitio carga lento", no jerga.</p>
+        <a href="#" class="tool-link">Probar →</a>
+      </div>
+      <div class="tool-card">
+        <i class="fa-solid fa-wand-magic-sparkles tool-icon"></i>
+        <h3>Descripciones con IA</h3>
+        <p>Dame tu producto. Te genero copy de venta en español — demo real de integración con IA.</p>
+        <a href="#" class="tool-link">Probar →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact">
+    <div class="contact-inner">
+      <h2>¿<span class="hl-magenta">Platicamos</span>?</h2>
+      <p>No necesitas tener todo resuelto. Un mensaje, una duda, una idea a medio formar — te digo si lo puedo tomar.</p>
+      <a class="cta cta-large cta-primary" href="https://wa.me/5214425834043" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Mándame un WhatsApp</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-name">impulso digital</span>
+      <span class="footer-loc">Querétaro, México</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/bermudi" target="_blank" rel="noopener" title="GitHub"><i class="fa-brands fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/bermudi/" target="_blank" rel="noopener" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="https://bsky.app/profile/bermudi.dev" target="_blank" rel="noopener" title="Bluesky"><i class="fa-brands fa-bluesky"></i></a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
