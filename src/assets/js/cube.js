@@ -39,6 +39,7 @@
     captionNum: document.getElementById("face_caption_num"),
     captionName: document.getElementById("face_caption_name"),
     header: document.getElementById("site_header"),
+    stage: document.getElementById("cube_stage"),
   };
 
   const sections = [...document.querySelectorAll("#scroll_container section")];
@@ -54,6 +55,11 @@
     return;
   }
 
+  // Small screens drive the cube from a sticky scroll-pinned stage
+  // (see #cube_stage / mobile CSS) instead of whole-document scroll.
+  const isSmallScreen = window.matchMedia("(max-width: 900px)").matches;
+  const stageMode = isSmallScreen && !!dom.stage;
+
   // ---------- Scroll smoothing state ----------
   let sectionTops = [];
   let maxScroll = 1;
@@ -63,6 +69,7 @@
   let smooth = 0;    // smoothed progress
   let velocity = 0;  // wheel velocity for inertia
   let currentStop = -1;
+  let stageTop = 0;          // cached offset of #cube_stage (mobile)
 
   const ease = 0.1;
   const easeIO = (t) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t);
@@ -70,6 +77,19 @@
   // ---------- Section measurement ----------
   function buildSectionTops() {
     sectionTops = sections.map((s) => s.getBoundingClientRect().top + window.scrollY);
+    if (dom.stage) stageTop = dom.stage.getBoundingClientRect().top + window.scrollY;
+  }
+
+  const clamp01 = (v) => Math.max(0, Math.min(1, v));
+
+  // Cube-driving scroll progress. Desktop = whole document.
+  // Mobile (stageMode) = 0 at stage top → 1 once the stage has scrolled past.
+  function progressFromScroll(y) {
+    if (stageMode) {
+      const span = dom.stage.offsetHeight - window.innerHeight;
+      return span > 0 ? (y - stageTop) / span : 0;
+    }
+    return maxScroll > 0 ? y / maxScroll : 0;
   }
 
   function resize() {
@@ -176,12 +196,10 @@
 
   // ---------- Event listeners ----------
   window.addEventListener("scroll", () => {
-    tgt = maxScroll > 0 ? window.scrollY / maxScroll : 0;
-    tgt = Math.max(0, Math.min(1, tgt));
+    tgt = clamp01(progressFromScroll(window.scrollY));
   }, { passive: true });
 
-  // Wheel inertia (optional — only in cube zone, doesn't hijack normal scroll)
-  const isSmallScreen = window.matchMedia("(max-width: 900px)").matches;
+  // Wheel inertia (desktop only — touch scrolls natively, stage is scroll-driven)
   if (!isSmallScreen) {
     window.addEventListener("wheel", (e) => {
       // Only apply smoothing in the cube section
@@ -201,7 +219,7 @@
   window.addEventListener("touchstart", stopAnchorAnim, { passive: true });
   window.addEventListener("mousedown", stopAnchorAnim, { passive: true });
   window.addEventListener("keydown", stopAnchorAnim);
-  window.addEventListener("resize", () => { resize(); tgt = maxScroll > 0 ? window.scrollY / maxScroll : 0; smooth = tgt; });
+  window.addEventListener("resize", () => { resize(); tgt = clamp01(progressFromScroll(window.scrollY)); smooth = tgt; });
 
   // ResizeObserver for dynamic content
   let resizePending = false;
@@ -253,7 +271,7 @@
 
   // ---------- Init ----------
   resize();
-  tgt = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+  tgt = clamp01(progressFromScroll(window.scrollY));
   smooth = tgt;
   requestAnimationFrame(frame);
 })();

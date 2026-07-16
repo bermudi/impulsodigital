@@ -38,7 +38,7 @@ body {
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.6;
-  overflow-x: hidden;
+  overflow-x: clip;   /* clip, not hidden: hidden forces overflow-y:auto and breaks position:sticky */
   -webkit-font-smoothing: antialiased;
 }
 a { color: inherit; }
@@ -308,23 +308,62 @@ section.cube-section.card-right { justify-content: flex-end; padding: 6rem 5rem 
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {
   #scene, #hud, #scene_strip, #face_caption { display: none !important; }
+  #cube_stage { height: auto; }   /* no empty runway when cube is hidden */
   section.cube-section { min-height: auto; padding: 3rem 1.5rem; justify-content: flex-start !important; }
   .text-card { backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--bg-2); box-shadow: none; max-width: 100%; }
   .reveal { opacity: 1; translate: 0 0; scale: 1 1; }
 }
 
 /* ============================================================
-   RESPONSIVE
+   RESPONSIVE — sticky scroll-pinned cube on mobile
+   Desktop keeps the fixed-cube-behind-cards composition. On phones
+   the cube pins inside a tall stage and rotates through its faces as
+   the stage scrolls past; once past, it releases into a clean stacked
+   reading flow. position:sticky sidesteps the iOS fixed/URL-bar hell.
    ============================================================ */
 @media (max-width: 900px) {
-  #cube { --s: min(80vw, 40vh, 360px); }
-  section.cube-section { min-height: 130vh; align-items: flex-end; padding: 0 1.5rem 4rem; flex-direction: column; }
-  section.cube-section.card-right { justify-content: flex-end; padding: 0 1.5rem 4rem; }
-  .text-card, .text-card.right, .text-card.center { max-width: 100%; padding: 1.5rem 1.25rem; text-align: left; }
+  /* THE STAGE: a tall runway. #scene sticks inside it for one viewport
+     and rotates the cube as the runway scrolls underneath. */
+  #cube_stage {
+    position: relative;
+    height: 360vh;            /* runway length → controls spin pacing */
+  }
+  #scene {
+    position: sticky;
+    top: 0;            /* the non-auto edge sticky needs to pin */
+    height: 100vh;     /* fallback */
+    height: 100dvh;    /* respect iOS dynamic URL bar */
+  }
+  /* Big, prominent cube — this is the hero, not a stamp */
+  #cube { --s: min(82vw, 46vh, 420px); }
+
+  /* The proof face crams two screenshots; shrink so they fit a smaller face */
+  .face-proof { padding: 0.6rem; }
+  .browser-frame img { max-height: 118px; }
+
+  /* BELOW THE STAGE: cards stack as normal reading flow. They no longer
+     overlay the cube, so drop the glass/blur tax entirely. */
+  section.cube-section {
+    min-height: auto;
+    display: block;
+    padding: 2.5rem 1.5rem;
+  }
+  section.cube-section.card-right { justify-content: flex-start; padding: 2.5rem 1.5rem; }
+  .text-card, .text-card.right, .text-card.center {
+    max-width: 100%;
+    padding: 1.5rem 1.25rem;
+    text-align: left;
+    background: var(--bg-2);
+    backdrop-filter: none; -webkit-backdrop-filter: none;
+    box-shadow: none;
+    border-left: 1px solid var(--card-border);
+    border-right: none;
+  }
   .text-card.right .cta-row, .text-card.right .stat-row { justify-content: flex-start; }
+
   #hud { top: 4.5rem; right: 1rem; }
   #scene_strip { display: none; }
-  #face_caption { bottom: 1rem; }
+  #face_caption { display: none; }
   .services-grid, .tools-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   .site-nav a:not(.nav-cta) { display: none; }
 }
