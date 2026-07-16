@@ -84,20 +84,64 @@ a { color: inherit; }
 .face {
   position: absolute; inset: 0; overflow: hidden;
   backface-visibility: hidden;
-  background:
-    repeating-linear-gradient(0deg, rgba(184,66,31,0.03) 0, rgba(184,66,31,0.03) 1px, transparent 1px, transparent 48px),
-    repeating-linear-gradient(90deg, rgba(184,66,31,0.03) 0, rgba(184,66,31,0.03) 1px, transparent 1px, transparent 48px),
-    var(--bg-2);
-  display: flex; align-items: flex-end; justify-content: flex-start;
+  display: flex; align-items: center; justify-content: center;
   padding: 1.5rem;
 }
-.face-content { position: relative; z-index: 2; }
-.face-num { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 0.4rem; }
-.face-name { font-family: var(--font-display); font-size: clamp(1.8rem, 5vw, 3.2rem); line-height: 0.95; letter-spacing: 0.02em; color: var(--ink); }
-.face-status { display: inline-block; margin-top: 0.6rem; font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.2rem 0.5rem; border: 1px solid; }
-.face-status.live { color: var(--green); border-color: var(--green); }
-.face-status.demo { color: var(--accent); border-color: var(--accent); }
-.face-status.case { color: var(--ink-muted); border-color: var(--ink-muted); }
+
+/* F0 IMPULSO — full terracotta brand poster */
+.face-brand { background: var(--accent); }
+.face-massive {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 6.5vw, 4.2rem);
+  line-height: 0.9; letter-spacing: 0.02em;
+  color: var(--bg); text-align: center;
+}
+
+/* F1 SERVICIOS / F4 PRUÉBALO — icon grids on cream */
+.face-services, .face-try { background: var(--bg-2); }
+.face-icons {
+  display: flex; gap: 1.4rem; align-items: center; justify-content: center;
+}
+.face-icon {
+  display: flex; flex-direction: column; align-items: center; gap: 0.45rem;
+  color: var(--accent);
+}
+.face-icon i { font-size: clamp(1.7rem, 4vw, 2.6rem); }
+.face-icon span {
+  font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--ink-dim);
+}
+.face-arrow { font-size: 1.3rem; color: var(--accent); margin-top: 0.5rem; }
+
+/* F2 POR QUÉ YO — dark ink with giant numeral */
+.face-why { background: var(--ink); flex-direction: column; gap: 0.4rem; }
+.face-glyph {
+  font-family: var(--font-display);
+  font-size: clamp(4.5rem, 13vw, 8rem);
+  line-height: 0.85; color: var(--accent);
+}
+.face-glyph-label {
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: rgba(245,241,232,0.55);
+  text-align: center; line-height: 1.5;
+}
+
+/* F3 EN VIVO — browser frames with real screenshots */
+.face-proof { background: var(--bg-2); flex-direction: column; gap: 0.5rem; padding: 1rem; }
+.face-screens { display: flex; flex-direction: column; gap: 0.5rem; width: 100%; }
+.browser-frame {
+  border: 1px solid rgba(184,66,31,0.22); background: #fff; overflow: hidden;
+}
+.browser-bar {
+  display: flex; gap: 0.25rem; padding: 0.3rem 0.45rem;
+  background: rgba(184,66,31,0.05); border-bottom: 1px solid rgba(184,66,31,0.1);
+}
+.browser-bar span { width: 5px; height: 5px; border-radius: 50%; background: rgba(184,66,31,0.3); }
+.browser-frame img { display: block; width: 100%; max-height: 175px; object-fit: cover; object-position: top; }
+
+/* F5 HABLEMOS — terracotta with WhatsApp glyph */
+.face-talk { background: var(--accent); }
+.face-talk .face-glyph { font-size: clamp(2.8rem, 7vw, 4.5rem); color: var(--bg); }
 
 .face[data-face="front"]  { transform: translateZ(calc(var(--s) / 2)); }
 .face[data-face="back"]   { transform: rotateY(180deg) translateZ(calc(var(--s) / 2)); }
