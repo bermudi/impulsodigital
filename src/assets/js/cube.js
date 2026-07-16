@@ -24,7 +24,7 @@
     { rx: -90, ry: -360 },  // s5 — shows BOTTOM
   ];
 
-  const FACE_NAMES = ["IMPULSO", "SUD AMERICAN", "POSADA REAL", "LAS FRESAS", "QRO SEGURO", "CIPHER SHIELD"];
+  const FACE_NAMES = ["IMPULSO", "SERVICIOS", "POR QUÉ YO", "EN VIVO", "PRUÉBALO", "HABLEMOS"];
 
   const dom = {
     cube: document.getElementById("cube"),
