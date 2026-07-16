@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impulso Digital — Showroom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css">
+<style>
+/* 12 — SHOWROOM
+   Work-first. A builder's showroom: you see what I built before
+   I hand you a card. Inverts "pitch then prove" — proof IS the pitch.
+   Dark, confident, visual. Minimal copy up top, work does the talking. */
+:root {
+  --bg: #0c0c0e;
+  --surface: #16161a;
+  --surface-2: #1e1e24;
+  --ink: #f2f0ec;
+  --ink-dim: #a8a39b;
+  --ink-muted: #6b6760;
+  --border: #2a2a32;
+  --accent: #e8b339;
+  --accent-soft: rgba(232,179,57,0.12);
+  --maxw: 1200px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--ink); font-family: 'Inter', system-ui, sans-serif; font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+
+.site-header { position: sticky; top: 0; z-index: 50; background: rgba(12,12,14,0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+.header-inner { max-width: var(--maxw); margin: 0 auto; padding: 0.9rem 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.brand { text-decoration: none; font-family: 'Instrument Serif', serif; font-size: 1.4rem; letter-spacing: -0.01em; }
+.brand em { font-style: italic; color: var(--accent); }
+.site-nav { display: flex; align-items: center; gap: 1.6rem; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; }
+.site-nav a { text-decoration: none; color: var(--ink-dim); transition: color 0.2s ease; }
+.site-nav a:hover { color: var(--accent); }
+.site-nav .nav-cta { color: var(--bg); background: var(--accent); padding: 0.5rem 1rem; font-weight: 500; }
+
+/* Hero — minimal. Headline, one line, CTA. Then immediately work. */
+.hero { max-width: var(--maxw); margin: 0 auto; padding: 4rem 1.5rem 2rem; }
+.hero-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--accent); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.5rem; }
+.hero-eyebrow .dot { width: 7px; height: 7px; background: var(--accent); border-radius: 50%; animation: pulse 2.4s ease infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+.hero h1 { font-family: 'Instrument Serif', serif; font-size: clamp(2.8rem, 7vw, 5.5rem); font-weight: 400; line-height: 1; letter-spacing: -0.02em; margin-bottom: 1.2rem; }
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero p { font-size: 1.15rem; color: var(--ink-dim); max-width: 520px; line-height: 1.5; margin-bottom: 1.8rem; }
+.hero-cta { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.84rem; padding: 0.85rem 1.5rem; background: var(--accent); color: var(--bg); text-decoration: none; font-weight: 500; transition: transform 0.2s ease; }
+.hero-cta:hover { transform: translateY(-2px); }
+
+/* Work — the showroom. Big cards, visual-first. */
+.work { max-width: var(--maxw); margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+.work-label { font-family: 'JetBrains Mono', monospace; font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink-muted); margin-bottom: 1.5rem; display: flex; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 1rem; }
+.work-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.2rem; }
+.work-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; text-decoration: none; color: inherit; transition: transform 0.25s ease, border-color 0.25s ease; display: flex; flex-direction: column; }
+.work-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+.work-card-visual { height: 180px; background: linear-gradient(135deg, var(--surface-2), #2a2620); display: flex; align-items: center; justify-content: center; font-family: 'Instrument Serif', serif; font-size: 1.6rem; color: var(--ink-muted); position: relative; }
+.work-card-visual .badge { position: absolute; top: 0.8rem; right: 0.8rem; font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.25rem 0.55rem; border-radius: 3px; }
+.work-card-visual .badge.live { background: var(--accent); color: var(--bg); }
+.work-card-visual .badge.archived { background: var(--surface-2); color: var(--ink-muted); border: 1px solid var(--border); }
+.work-card-body { padding: 1.4rem 1.5rem 1.6rem; display: flex; flex-direction: column; gap: 0.5rem; flex-grow: 1; }
+.work-card-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted); }
+.work-card h3 { font-family: 'Instrument Serif', serif; font-size: 1.6rem; font-weight: 400; line-height: 1.1; }
+.work-card p { font-size: 0.9rem; color: var(--ink-dim); line-height: 1.5; flex-grow: 1; }
+.work-card-url { font-family: 'JetBrains Mono', monospace; font-size: 0.76rem; color: var(--accent); margin-top: 0.3rem; }
+.work-card-cta { border: 1px dashed var(--accent); background: var(--accent-soft); }
+.work-card-cta h3 { color: var(--accent); }
+.work-card-cta .work-card-visual { background: var(--accent-soft); }
+
+/* Services — compact strip after the work */
+.services { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 4rem 1.5rem; }
+.services-inner { max-width: var(--maxw); margin: 0 auto; }
+.services-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2.5rem; border-top: 1px solid var(--border); padding-top: 1rem; }
+.services-head h2 { font-family: 'Instrument Serif', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 400; }
+.services-head h2 em { font-style: italic; color: var(--accent); }
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.svc { padding: 1.5rem 0; border-top: 1px solid var(--border); }
+.svc-num { font-family: 'JetBrains Mono', monospace; font-size: 0.74rem; color: var(--accent); margin-bottom: 0.6rem; }
+.svc h3 { font-family: 'Instrument Serif', serif; font-size: 1.4rem; font-weight: 400; margin-bottom: 0.4rem; }
+.svc p { font-size: 0.92rem; color: var(--ink-dim); line-height: 1.5; }
+
+/* Tools — tight row */
+.tools { max-width: var(--maxw); margin: 0 auto; padding: 4rem 1.5rem; }
+.tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 1.5rem; }
+.tool { padding: 1.8rem; border: 1px solid var(--border); text-decoration: none; color: inherit; transition: all 0.2s ease; }
+.tool + .tool { border-left: none; }
+.tool:hover { background: var(--surface); border-color: var(--accent); }
+.tool:hover + .tool { border-left-color: var(--accent); }
+.tool-icon { color: var(--accent); font-size: 1.2rem; margin-bottom: 0.8rem; }
+.tool h3 { font-family: 'Instrument Serif', serif; font-size: 1.3rem; font-weight: 400; margin-bottom: 0.4rem; }
+.tool p { font-size: 0.88rem; color: var(--ink-dim); line-height: 1.45; }
+.tool-link { font-family: 'JetBrains Mono', monospace; font-size: 0.74rem; color: var(--accent); margin-top: 0.8rem; display: inline-block; }
+
+/* Contact — direct */
+.contact { max-width: var(--maxw); margin: 0 auto; padding: 5rem 1.5rem; text-align: center; border-top: 1px solid var(--border); }
+.contact h2 { font-family: 'Instrument Serif', serif; font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 400; line-height: 1.05; margin-bottom: 1rem; }
+.contact h2 em { font-style: italic; color: var(--accent); }
+.contact p { font-size: 1.1rem; color: var(--ink-dim); max-width: 440px; margin: 0 auto 2rem; }
+.contact-cta { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; padding: 1rem 2rem; background: var(--accent); color: var(--bg); text-decoration: none; font-weight: 500; }
+
+footer { border-top: 1px solid var(--border); padding: 2rem 1.5rem; }
+.footer-inner { max-width: var(--maxw); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; font-family: 'JetBrains Mono', monospace; font-size: 0.74rem; color: var(--ink-muted); }
+.footer-links { display: flex; gap: 1.2rem; }
+.footer-links a { text-decoration: none; color: var(--ink-muted); }
+.footer-links a:hover { color: var(--accent); }
+
+.mockup-badge { position: fixed; top: 64px; right: 16px; z-index: 100; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--accent); background: var(--surface); border: 1px solid var(--border); padding: 0.35rem 0.7rem; }
+
+@media (max-width: 860px) { .services-grid, .tools-grid { grid-template-columns: 1fr; } .tool + .tool { border-left: none; border-top: none; } .site-nav a:not(.nav-cta) { display: none; } }
+@media (prefers-reduced-motion: reduce) { .hero-eyebrow .dot { animation: none !important; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<div class="mockup-badge">12 · showroom</div>
+<header class="site-header"><div class="header-inner">
+  <a href="/" class="brand">Impulso <em>Digital</em></a>
+  <nav class="site-nav">
+    <a href="#trabajo">Trabajo</a><a href="#servicios">Servicios</a><a href="#herramientas">Tools</a>
+    <a href="#contacto" class="nav-cta">Hablemos</a>
+  </nav>
+</div></header>
+
+<section class="hero">
+  <div class="hero-eyebrow"><span class="dot"></span> Disponible · Querétaro, México</div>
+  <h1>Construyo webs y herramientas que <em>trabajan por ti</em>.</h1>
+  <p>No diseñamos bonito que no sirve. Sitios que traen clientes, herramientas que ahorran horas. Esto es lo que llevo entregado — no promesas.</p>
+  <a href="#contacto" class="hero-cta"><i class="fa-brands fa-whatsapp"></i> Cuéntame qué necesitas</a>
+</section>
+
+<section id="trabajo" class="work">
+  <div class="work-label"><span>Trabajo en vivo</span><span>5 proyectos</span></div>
+  <div class="work-grid">
+    <a class="work-card" href="https://www.sudamericanlumber.com/" target="_blank" rel="noopener">
+      <div class="work-card-visual">Sud American<span class="badge live">● en vivo</span></div>
+      <div class="work-card-body">
+        <span class="work-card-tag">Exportación · bilingüe</span>
+        <h3>Sud American Lumber</h3>
+        <p>Catálogo para exportador de maderas finas peruanas. Diseñado para venta internacional.</p>
+        <span class="work-card-url">sudamericanlumber.com →</span>
+      </div>
+    </a>
+    <a class="work-card" href="https://www.posadarealchiapas.com.mx/" target="_blank" rel="noopener">
+      <div class="work-card-visual">Posada Real<span class="badge live">● en vivo</span></div>
+      <div class="work-card-body">
+        <span class="work-card-tag">Hospitalidad · CMS</span>
+        <h3>Posada Real de Chiapas</h3>
+        <p>Hotel boutique en San Cristóbal. El staff gestiona todo sin tocar código.</p>
+        <span class="work-card-url">posadarealchiapas.com.mx →</span>
+      </div>
+    </a>
+    <a class="work-card" href="https://lasfresas.com.mx/" target="_blank" rel="noopener">
+      <div class="work-card-visual">Las Fresas<span class="badge live">● en vivo</span></div>
+      <div class="work-card-body">
+        <span class="work-card-tag">E-commerce · mobile-first</span>
+        <h3>Las Fresas</h3>
+        <p>Tienda de postres en Dolores Hidalgo. Carrito, galería, pedir desde el celular.</p>
+        <span class="work-card-url">lasfresas.com.mx →</span>
+      </div>
+    </a>
+    <a class="work-card" href="#">
+      <div class="work-card-visual">QRO Seguro<span class="badge archived">caso</span></div>
+      <div class="work-card-body">
+        <span class="work-card-tag">Seguridad · QR</span>
+        <h3>QRO Seguro</h3>
+        <p>Control de acceso con QR para comunidades privadas. SEO local completo.</p>
+        <span class="work-card-url">ver caso →</span>
+      </div>
+    </a>
+    <a class="work-card" href="#">
+      <div class="work-card-visual">CipherShield<span class="badge archived">caso</span></div>
+      <div class="work-card-body">
+        <span class="work-card-tag">Cybersec · bilingüe</span>
+        <h3>CipherShield Security</h3>
+        <p>Sitio ES/EN para firma de ciberseguridad. Astro + React + MDX.</p>
+        <span class="work-card-url">ver caso →</span>
+      </div>
+    </a>
+    <a class="work-card work-card-cta" href="#contacto">
+      <div class="work-card-visual">Tu proyecto<span class="badge live">¿siguiente?</span></div>
+      <div class="work-card-body">
+        <span class="work-card-tag">¿El siguiente?</span>
+        <h3>Tu proyecto</h3>
+        <p>Cuéntame qué está roto, lento o ausente. Te digo si lo puedo resolver, y en cuánto.</p>
+        <span class="work-card-url">mandar WhatsApp →</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<section id="servicios" class="services"><div class="services-inner">
+  <div class="services-head"><h2>En lo que soy <em>bueno</em></h2><span class="work-label" style="border:none;">tres cosas, no veinte</span></div>
+  <div class="services-grid">
+    <div class="svc"><div class="svc-num">01</div><h3>Sitios que trabajan</h3><p>Sitios que capturan clientes, muestran tu trabajo, y no te dan dolores de cabeza cada mes.</p></div>
+    <div class="svc"><div class="svc-num">02</div><h3>Herramientas para tu negocio</h3><p>Verificadores, diagnósticos, automatizaciones. Cosas que de verdad ahorran horas.</p></div>
+    <div class="svc"><div class="svc-num">03</div><h3>IA que sirve para algo</h3><p>No la moda. Lo que de verdad te ahorra horas: asistentes internos, herramientas a medida.</p></div>
+  </div>
+</div></section>
+
+<section id="herramientas" class="tools">
+  <div class="work-label" style="border-top:1px solid var(--border);padding-top:1rem;"><span>Pruébalo gratis</span><span>3 herramientas</span></div>
+  <div class="tools-grid">
+    <a class="tool" href="#"><i class="fa-solid fa-envelope-circle-check tool-icon"></i><h3>Verificador de correo</h3><p>Pon tu dominio. Te decimos si tus correos llegan.</p><span class="tool-link">Probar →</span></a>
+    <a class="tool" href="#"><i class="fa-solid fa-gauge-high tool-icon"></i><h3>Diagnóstico de sitio</h3><p>Pon tu URL. Meta tags, mobile, HTTPS, peso.</p><span class="tool-link">Probar →</span></a>
+    <a class="tool" href="#"><i class="fa-solid fa-wand-magic-sparkles tool-icon"></i><h3>Descripciones con IA</h3><p>Dame tu producto. Copy de venta en español.</p><span class="tool-link">Probar →</span></a>
+  </div>
+</section>
+
+<section id="contacto" class="contact">
+  <h2>¿<em>Platicamos</em>?</h2>
+  <p>No necesitas tener todo resuelto. Un mensaje, una duda, una idea a medio formar.</p>
+  <a href="https://wa.me/5214425834043" target="_blank" rel="noopener" class="contact-cta"><i class="fa-brands fa-whatsapp"></i> Mándame un WhatsApp</a>
+</section>
+
+<footer><div class="footer-inner">
+  <div>Impulso Digital · Querétaro, México</div>
+  <div class="footer-links"><a href="https://github.com/bermudi" target="_blank" rel="noopener">GitHub</a><a href="https://www.linkedin.com/in/bermudi/" target="_blank" rel="noopener">LinkedIn</a><a href="https://bsky.app/profile/bermudi.dev" target="_blank" rel="noopener">Bluesky</a></div>
+</div></footer>
+</body>
+</html>
