@@ -184,7 +184,10 @@ section.cube-section.card-right { justify-content: flex-end; padding: 6rem 5rem 
 
 .tag { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.1rem; }
 .text-card h1, .text-card h2 { font-family: var(--font-display); font-weight: 400; letter-spacing: 0.02em; line-height: 0.92; color: var(--ink); }
-.text-card h1 { font-size: clamp(2.6rem, 6vw, 5rem); }
+/* Cap lowered 5rem → 4.2rem: at 5rem, HERRAMIENTAS (~4.36em wide in Bebas
+   Neue) ran ~21.8rem and overflowed the card's 20rem content box, orphaning
+   the final S. 4.2rem keeps it at ~18.3rem with ~1.7rem margin. */
+.text-card h1 { font-size: clamp(2.6rem, 6vw, 4.2rem); }
 .text-card h2 { font-size: clamp(2.2rem, 5vw, 3.8rem); }
 .body-text { font-size: 0.92rem; line-height: 1.7; color: var(--ink-dim); margin-top: 1.25rem; }
 
