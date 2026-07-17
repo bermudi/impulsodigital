@@ -71,7 +71,7 @@
   let currentStop = -1;
   let stageTop = 0;          // cached offset of #cube_stage (mobile)
 
-  const ease = 0.1;
+  const ease = 0.2;
   const easeIO = (t) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t);
 
   // ---------- Section measurement ----------
@@ -250,14 +250,22 @@
     const dt = Math.min((now - lastNow) / 1000, 0.05);
     lastNow = now;
 
-    // Apply wheel velocity to scroll
-    const friction = Math.abs(velocity) > 200 ? 0.8 : 0.9;
-    velocity *= Math.pow(friction, dt * 60);
-    if (Math.abs(velocity) < 0.01) velocity = 0;
-    if (Math.abs(velocity) > 0.2) {
-      const next = Math.max(0, Math.min(window.scrollY + velocity * ease, maxScroll));
-      window.scrollTo(0, next);
-      tgt = next / maxScroll;
+    // Apply wheel velocity to scroll — but ONLY inside the cube zone, using
+    // the same boundary as the wheel handler. Letting residual inertia push
+    // past it stacks with native wheel scroll and slingshots the user
+    // through the post-cube content ("baam, too fast to read").
+    const cubeZoneEnd = sectionTops[N - 1] || maxScroll;
+    if (window.scrollY >= cubeZoneEnd) {
+      velocity = 0;  // shed inertia the moment native scroll takes over
+    } else {
+      const friction = Math.abs(velocity) > 200 ? 0.8 : 0.9;
+      velocity *= Math.pow(friction, dt * 60);
+      if (Math.abs(velocity) < 0.01) velocity = 0;
+      if (Math.abs(velocity) > 0.2) {
+        const next = Math.max(0, Math.min(window.scrollY + velocity * ease, maxScroll));
+        window.scrollTo(0, next);
+        tgt = next / maxScroll;
+      }
     }
 
     // Smooth the target
