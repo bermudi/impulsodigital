@@ -49,7 +49,7 @@ export async function onRequestPost({ request }) {
   try {
     res = await fetch(parsed.href, {
       redirect: 'follow',
-      headers: { 'user-agent': 'ImpulsoDigital-Checker/1.0 (+https://impuslodigital.com)' },
+      headers: { 'user-agent': 'bermudi-Checker/1.0 (+https://bermudi.dev)' },
     });
     result.loadMs = Date.now() - t0;
   } catch (err) {

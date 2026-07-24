@@ -1,7 +1,7 @@
 {
-  "name": "impulsodigital",
+  "name": "bermudi.dev",
   "version": "1.0.0",
-  "description": "Impulso Digital — Sitios y sistemas que trabajan por ti. Commercial portfolio.",
+  "description": "bermudi — Sitios y sistemas que trabajan por ti. Impulso Digital service line.",
   "scripts": {
     "dev": "eleventy --serve",
     "start": "eleventy --serve",

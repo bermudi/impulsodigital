@@ -24,7 +24,7 @@
     { rx: -90, ry: -360 },  // s5 — shows BOTTOM
   ];
 
-  const FACE_NAMES = ["IMPULSO", "SERVICIOS", "POR QUÉ YO", "EN VIVO", "PRUÉBALO", "HABLEMOS"];
+  const FACE_NAMES = ["bermudi", "SERVICIOS", "POR QUÉ YO", "EN VIVO", "PRUÉBALO", "HABLEMOS"];
 
   const dom = {
     cube: document.getElementById("cube"),
