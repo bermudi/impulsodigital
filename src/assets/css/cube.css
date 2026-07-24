@@ -68,17 +68,20 @@ a { color: inherit; }
 #scene {
   position: fixed; inset: 0; z-index: 0;
   display: flex; align-items: center; justify-content: center;
-  perspective: 1100px; pointer-events: none;
+  pointer-events: none;
   transition: opacity 0.5s ease;
 }
 #scene.fade { opacity: 0; pointer-events: none; }
 
 #cube {
   --s: min(70vw, 60vh, 480px);
+  --perspective: 1100px;
   width: var(--s); height: var(--s);
   position: relative;
   transform-style: preserve-3d;
-  transform: rotateX(90deg) rotateY(0deg);
+  /* Keep perspective on the cube itself. Firefox Android can distort a
+     perspective context inherited through the sticky mobile scene. */
+  transform: perspective(var(--perspective)) rotateX(90deg) rotateY(0deg);
   will-change: transform;
 }
 
@@ -339,8 +342,19 @@ section.cube-section.card-right { justify-content: flex-end; padding: 6rem 5rem 
     height: 100vh;     /* fallback */
     height: 100dvh;    /* respect iOS dynamic URL bar */
   }
+
+  /* Gecko corrupts preserve-3d descendants while their containing scene is
+     sticky. Firefox does not need the iOS URL-bar workaround, so keep its
+     scene fixed and let the same stage scroll calculation drive the cube. */
+  @supports (-moz-appearance: none) {
+    #scene { position: fixed; }
+  }
+
   /* Big, prominent cube — this is the hero, not a stamp */
-  #cube { --s: min(82vw, 46vh, 420px); }
+  #cube {
+    --s: min(82vw, 46vh, 420px);   /* fallback for browsers without dvh */
+    --s: min(82vw, 46dvh, 420px);
+  }
 
   /* The proof face crams two screenshots; shrink so they fit a smaller face */
   .face-proof { padding: 0.6rem; }

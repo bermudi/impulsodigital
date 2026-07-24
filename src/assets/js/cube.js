@@ -113,7 +113,9 @@
     const b = STOPS[i + 1];
     const rx = a.rx + (b.rx - a.rx) * f;
     const ry = a.ry + (b.ry - a.ry) * f;
-    const transform = `rotateX(${rx.toFixed(4)}deg) rotateY(${ry.toFixed(4)}deg)`;
+    // A local perspective avoids Firefox Android's broken perspective origin
+    // when the cube is rendered inside the sticky mobile scene.
+    const transform = `perspective(var(--perspective)) rotateX(${rx.toFixed(4)}deg) rotateY(${ry.toFixed(4)}deg)`;
     if (dom.cube && transform !== lastTransform) {
       lastTransform = transform;
       dom.cube.style.transform = transform;
