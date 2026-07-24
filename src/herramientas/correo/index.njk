@@ -6,26 +6,67 @@ tool: true
 permalink: /herramientas/correo/index.html
 ---
 
-<div class="wrap" style="padding-top: 3rem; padding-bottom: 4rem;">
-  <a href="/" style="font-family:'IBM Plex Mono',monospace;font-size:0.76rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--accent);text-decoration:none;">← Impulso Digital</a>
+<header class="masthead">
+  <div class="masthead-inner">
+    <a href="/" class="mast-left">← Volver</a>
+    <a href="/" class="mast-title">Impulso <em>Digital</em></a>
+    <div class="mast-right">Herramienta</div>
+  </div>
+</header>
 
-  <div style="margin-top: 2.5rem; max-width: 720px;">
-    <div class="section-flag" style="margin-bottom: 2rem;">
-      <span>§ Herramienta — Correo</span>
-      <span class="page">gratis, sin registro</span>
+<div class="wrap">
+  <div class="grid pad-section">
+    <div class="col-8 gutter">
+      <div class="section-flag">
+        <span>§ Herramienta — Correo</span>
+        <span class="page">gratis, sin registro</span>
+      </div>
+
+      <h1 class="tool-headline">¿Tu correo <em>llega</em>?</h1>
+      <p class="tool-lede">Pon tu dominio (ej. miproductora.com). Verifico MX, SPF, DKIM y DMARC, y te digo en español plano si tus correos están llegando — o por qué no.</p>
+
+      <form id="correo-form" class="tool-form">
+        <input type="text" id="domain" name="domain" class="tool-input" placeholder="miproductora.com" required>
+        <button type="submit" class="tool-btn">Verificar →</button>
+      </form>
+
+      <div id="result" class="tool-result"></div>
     </div>
 
-    <h1 style="font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2rem,5vw,3.4rem);line-height:0.95;letter-spacing:-0.02em;margin-bottom:1rem;">¿Tu correo <em style="font-style:italic;color:var(--accent);font-weight:400;">llega</em>?</h1>
-    <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:1.2rem;color:var(--ink-dim);line-height:1.45;margin-bottom:2rem;">Pon tu dominio (ej. miproductora.com). Verifico MX, SPF, DKIM y DMARC, y te digo en español plano si tus correos están llegando — o por qué no.</p>
-
-    <form id="correo-form" style="display:flex;gap:0.6rem;margin-bottom:2rem;flex-wrap:wrap;">
-      <input type="text" id="domain" name="domain" placeholder="miproductora.com" required style="flex:1;min-width:240px;padding:0.85rem 1rem;font-family:'IBM Plex Mono',monospace;font-size:0.95rem;border:1px solid var(--rule);background:var(--paper);color:var(--ink);border-radius:0;">
-      <button type="submit" style="padding:0.85rem 1.6rem;font-family:'IBM Plex Mono',monospace;font-size:0.82rem;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;background:var(--ink);color:var(--paper);border:none;cursor:pointer;border-radius:0;">Verificar →</button>
-    </form>
-
-    <div id="result" style="min-height: 4rem;"></div>
+    <aside class="col-4 gutter-l">
+      <div class="hero-aside-label">Qué reviso</div>
+      <div class="svc-item">
+        <div class="svc-num">MX</div>
+        <div class="svc-title">Servidores de correo</div>
+        <div class="svc-desc">¿Tus correos tienen a dónde llegar? Sin MX, nada entra.</div>
+      </div>
+      <div class="svc-item">
+        <div class="svc-num">SPF</div>
+        <div class="svc-title">Remitentes autorizados</div>
+        <div class="svc-desc">¿Tu servidor está autorizado para enviar en tu nombre?</div>
+      </div>
+      <div class="svc-item">
+        <div class="svc-num">DKIM</div>
+        <div class="svc-title">Firma digital</div>
+        <div class="svc-desc">¿Tus correos van firmados? Sin firma, Gmail los recela.</div>
+      </div>
+      <div class="svc-item" style="border-bottom:none;">
+        <div class="svc-num">DMARC</div>
+        <div class="svc-title">Política anti-fraude</div>
+        <div class="svc-desc">¿Qué pasa si alguien suplanta tu dominio? ¿Lo bloqueas o lo dejas pasar?</div>
+      </div>
+    </aside>
   </div>
 </div>
+
+<footer class="colophon wrap">
+  <div>Impulso Digital — Querétaro, México</div>
+  <div class="colophon-links">
+    <a href="/">Inicio</a>
+    <a href="/#herramientas">Herramientas</a>
+    <a href="https://wa.me/5214425834043" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+</footer>
 
 <script>
 const form = document.getElementById('correo-form');
@@ -50,7 +91,7 @@ form.addEventListener('submit', async (e) => {
     const data = await res.json();
     renderResult(data);
   } catch (err) {
-    result.innerHTML = '<div style="color:var(--accent);padding:1rem 0;">No pude completar la verificación. Intenta de nuevo.</div>';
+    result.innerHTML = '<div class="result-error">No pude completar la verificación. Intenta de nuevo.</div>';
   } finally {
     btn.disabled = false;
     btn.textContent = 'Verificar →';
@@ -59,29 +100,29 @@ form.addEventListener('submit', async (e) => {
 
 function renderResult(d) {
   if (d.error) {
-    result.innerHTML = `<div style="padding:1rem;border:1px solid var(--accent);color:var(--accent);font-family:'IBM Plex Mono',monospace;font-size:0.9rem;">✗ ${d.error}</div>`;
+    result.innerHTML = `<div class="result-error">✗ ${d.error}</div>`;
     return;
   }
 
-  const summaryClass = d.canReceive === false ? 'style="border-color:var(--accent);"' : '';
-  let html = `<div ${summaryClass} style="padding:1.3rem;border:1px solid var(--rule);background:rgba(178,36,31,0.03);margin-bottom:1.5rem;font-family:'Playfair Display',serif;font-size:1.15rem;line-height:1.4;">${d.summary}</div>`;
+  const failClass = d.canReceive === false ? ' fail' : '';
+  let html = `<div class="result-summary${failClass}">${d.summary}</div>`;
 
-  html += '<div style="border-top:2px solid var(--ink);padding-top:1rem;">';
-  html += '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:1rem;">Detalle técnico</div>';
+  html += '<div class="result-section">';
+  html += '<div class="result-section-label">Detalle técnico</div>';
 
   for (const c of d.checks) {
     const mark = c.ok === true ? '✓' : c.ok === false ? '✗' : '?';
-    const color = c.ok === true ? 'var(--ink)' : c.ok === false ? 'var(--accent)' : 'var(--ink-muted)';
-    html += `<div style="display:grid;grid-template-columns:24px 80px 1fr;gap:0.8rem;padding:0.7rem 0;border-bottom:1px solid var(--rule-soft);align-items:start;">
-      <span style="color:${color};font-weight:700;font-size:1rem;">${mark}</span>
-      <span style="font-family:'IBM Plex Mono',monospace;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-muted);">${c.label}</span>
-      <span style="font-size:0.88rem;color:var(--ink-dim);line-height:1.45;">${c.detail}</span>
+    const markClass = c.ok === true ? 'ok' : c.ok === false ? 'fail' : 'unknown';
+    html += `<div class="result-check">
+      <span class="mark ${markClass}">${mark}</span>
+      <span class="label">${c.label}</span>
+      <span class="detail">${c.detail}</span>
     </div>`;
   }
   html += '</div>';
 
-  html += `<div style="margin-top:2rem;padding:1.2rem;border:1px dashed var(--rule-soft);font-size:0.9rem;color:var(--ink-dim);line-height:1.5;">
-    ¿Algo salió mal? Esto es justo lo que resuelvo para negocios — verificación, configuración, y correo que de verdad llega. <a href="/#contacto" style="color:var(--accent);">Hablemos →</a>
+  html += `<div class="result-cta">
+    ¿Algo salió mal? Esto es justo lo que resuelvo para negocios — verificación, configuración, y correo que de verdad llega. <a href="/#contacto">Hablemos →</a>
   </div>`;
 
   result.innerHTML = html;

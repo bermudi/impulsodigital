@@ -6,26 +6,72 @@ tool: true
 permalink: /herramientas/sitio/index.html
 ---
 
-<div class="wrap" style="padding-top: 3rem; padding-bottom: 4rem;">
-  <a href="/" style="font-family:'IBM Plex Mono',monospace;font-size:0.76rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--accent);text-decoration:none;">← Impulso Digital</a>
+<header class="masthead">
+  <div class="masthead-inner">
+    <a href="/" class="mast-left">← Volver</a>
+    <a href="/" class="mast-title">Impulso <em>Digital</em></a>
+    <div class="mast-right">Herramienta</div>
+  </div>
+</header>
 
-  <div style="margin-top: 2.5rem; max-width: 720px;">
-    <div class="section-flag" style="margin-bottom: 2rem;">
-      <span>§ Herramienta — Sitio</span>
-      <span class="page">gratis, sin registro</span>
+<div class="wrap">
+  <div class="grid pad-section">
+    <div class="col-8 gutter">
+      <div class="section-flag">
+        <span>§ Herramienta — Sitio</span>
+        <span class="page">gratis, sin registro</span>
+      </div>
+
+      <h1 class="tool-headline">¿Tu sitio está <em>en forma</em>?</h1>
+      <p class="tool-lede">Pon tu URL (ej. mitienda.com). Reviso HTTPS, título, descripción, mobile, datos estructurados y peso. Te digo qué está bien, qué está mal, y qué cuesta arreglarlo.</p>
+
+      <form id="sitio-form" class="tool-form">
+        <input type="text" id="url" name="url" class="tool-input" placeholder="mitienda.com" required>
+        <button type="submit" class="tool-btn">Diagnosticar →</button>
+      </form>
+
+      <div id="result" class="tool-result"></div>
     </div>
 
-    <h1 style="font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2rem,5vw,3.4rem);line-height:0.95;letter-spacing:-0.02em;margin-bottom:1rem;">¿Tu sitio está <em style="font-style:italic;color:var(--accent);font-weight:400;">en forma</em>?</h1>
-    <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:1.2rem;color:var(--ink-dim);line-height:1.45;margin-bottom:2rem;">Pon tu URL (ej. mitienda.com). Reviso HTTPS, título, descripción, mobile, datos estructurados y peso. Te digo qué está bien, qué está mal, y qué cuesta arreglarlo.</p>
-
-    <form id="sitio-form" style="display:flex;gap:0.6rem;margin-bottom:2rem;flex-wrap:wrap;">
-      <input type="text" id="url" name="url" placeholder="mitienda.com" required style="flex:1;min-width:240px;padding:0.85rem 1rem;font-family:'IBM Plex Mono',monospace;font-size:0.95rem;border:1px solid var(--rule);background:var(--paper);color:var(--ink);border-radius:0;">
-      <button type="submit" style="padding:0.85rem 1.6rem;font-family:'IBM Plex Mono',monospace;font-size:0.82rem;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;background:var(--ink);color:var(--paper);border:none;cursor:pointer;border-radius:0;">Diagnosticar →</button>
-    </form>
-
-    <div id="result" style="min-height: 4rem;"></div>
+    <aside class="col-4 gutter-l">
+      <div class="hero-aside-label">Qué reviso</div>
+      <div class="svc-item">
+        <div class="svc-num">HTTPS</div>
+        <div class="svc-title">Conexión segura</div>
+        <div class="svc-desc">¿Tu sitio carga con candado? Sin HTTPS, Google te baja.</div>
+      </div>
+      <div class="svc-item">
+        <div class="svc-num">META</div>
+        <div class="svc-title">Título y descripción</div>
+        <div class="svc-desc">¿Google sabe qué es tu sitio? ¿Se ve bien en resultados?</div>
+      </div>
+      <div class="svc-item">
+        <div class="svc-num">MOBILE</div>
+        <div class="svc-title">Vista en celular</div>
+        <div class="svc-desc">¿Se ve bien en teléfono? El 70% de tus clientes entran así.</div>
+      </div>
+      <div class="svc-item">
+        <div class="svc-num">DATOS</div>
+        <div class="svc-title">Datos estructurados</div>
+        <div class="svc-desc">¿Google entiende tu contenido? Schema.org, no adivinanza.</div>
+      </div>
+      <div class="svc-item" style="border-bottom:none;">
+        <div class="svc-num">PESO</div>
+        <div class="svc-title">Velocidad de carga</div>
+        <div class="svc-desc">¿Carga rápido? 3 segundos más y perdiste la mitad de visitas.</div>
+      </div>
+    </aside>
   </div>
 </div>
+
+<footer class="colophon wrap">
+  <div>Impulso Digital — Querétaro, México</div>
+  <div class="colophon-links">
+    <a href="/">Inicio</a>
+    <a href="/#herramientas">Herramientas</a>
+    <a href="https://wa.me/5214425834043" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+</footer>
 
 <script>
 const form = document.getElementById('sitio-form');
@@ -50,7 +96,7 @@ form.addEventListener('submit', async (e) => {
     const data = await res.json();
     renderResult(data);
   } catch (err) {
-    result.innerHTML = '<div style="color:var(--accent);padding:1rem 0;">No pude completar el diagnóstico. Intenta de nuevo.</div>';
+    result.innerHTML = '<div class="result-error">No pude completar el diagnóstico. Intenta de nuevo.</div>';
   } finally {
     btn.disabled = false;
     btn.textContent = 'Diagnosticar →';
@@ -59,30 +105,30 @@ form.addEventListener('submit', async (e) => {
 
 function renderResult(d) {
   if (d.error) {
-    result.innerHTML = `<div style="padding:1rem;border:1px solid var(--accent);color:var(--accent);font-family:'IBM Plex Mono',monospace;font-size:0.9rem;">✗ ${d.error}</div>`;
+    result.innerHTML = `<div class="result-error">✗ ${d.error}</div>`;
     return;
   }
 
-  let html = `<div style="padding:1.3rem;border:1px solid var(--rule);background:rgba(178,36,31,0.03);margin-bottom:1.5rem;font-family:'Playfair Display',serif;font-size:1.15rem;line-height:1.4;">${d.summary}</div>`;
+  let html = `<div class="result-summary">${d.summary}</div>`;
 
-  html += `<div style="font-family:'IBM Plex Mono',monospace;font-size:0.76rem;color:var(--ink-muted);margin-bottom:1rem;">URL revisada: ${d.finalUrl || d.url} · HTTP ${d.status} · ${Math.round(d.bytes/1024)} KB · ${d.loadMs}ms</div>`;
+  html += `<div class="result-meta">URL revisada: ${d.finalUrl || d.url} · HTTP ${d.status} · ${Math.round(d.bytes/1024)} KB · ${d.loadMs}ms</div>`;
 
-  html += '<div style="border-top:2px solid var(--ink);padding-top:1rem;">';
-  html += '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:1rem;">Resultado por categoría</div>';
+  html += '<div class="result-section">';
+  html += '<div class="result-section-label">Resultado por categoría</div>';
 
   for (const c of d.checks) {
     const mark = c.ok === true ? '✓' : c.ok === false ? '✗' : '?';
-    const color = c.ok === true ? 'var(--ink)' : c.ok === false ? 'var(--accent)' : 'var(--ink-muted)';
-    html += `<div style="display:grid;grid-template-columns:24px 130px 1fr;gap:0.8rem;padding:0.7rem 0;border-bottom:1px solid var(--rule-soft);align-items:start;">
-      <span style="color:${color};font-weight:700;font-size:1rem;">${mark}</span>
-      <span style="font-family:'IBM Plex Mono',monospace;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-muted);">${c.label}</span>
-      <span style="font-size:0.88rem;color:var(--ink-dim);line-height:1.45;">${c.detail}</span>
+    const markClass = c.ok === true ? 'ok' : c.ok === false ? 'fail' : 'unknown';
+    html += `<div class="result-check">
+      <span class="mark ${markClass}">${mark}</span>
+      <span class="label">${c.label}</span>
+      <span class="detail">${c.detail}</span>
     </div>`;
   }
   html += '</div>';
 
-  html += `<div style="margin-top:2rem;padding:1.2rem;border:1px dashed var(--rule-soft);font-size:0.9rem;color:var(--ink-dim);line-height:1.5;">
-    ¿Te salieron cosas en rojo? Eso es lo que arreglo para negocios — sitios que cargan rápido, se ven bien en celular, y Google entiende. <a href="/#contacto" style="color:var(--accent);">Hablemos →</a>
+  html += `<div class="result-cta">
+    ¿Te salieron cosas en rojo? Eso es lo que arreglo para negocios — sitios que cargan rápido, se ven bien en celular, y Google entiende. <a href="/#contacto">Hablemos →</a>
   </div>`;
 
   result.innerHTML = html;

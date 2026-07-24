@@ -134,7 +134,56 @@ a { color: inherit; }
 .colophon-links a:hover { color: var(--accent); }
 
 /* Focus visibility for keyboard nav */
-a:focus-visible, .work-row:focus-visible, .tool-box:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+a:focus-visible, .work-row:focus-visible, .tool-box:focus-visible, .tool-btn:focus-visible, .tool-input:focus-visible, .chat-input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ============================================================
+   TOOL PAGES — correo, sitio, consultoría express
+   ============================================================ */
+.tool-headline { font-family: 'Playfair Display', serif; font-weight: 900; font-size: clamp(2rem, 5vw, 3.4rem); line-height: 0.95; letter-spacing: -0.02em; margin-bottom: 1rem; }
+.tool-headline em { font-style: italic; font-weight: 400; color: var(--accent); }
+.tool-lede { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.2rem; color: var(--ink-dim); line-height: 1.45; margin-bottom: 2rem; }
+.tool-form { display: flex; gap: 0.6rem; margin-bottom: 2rem; flex-wrap: wrap; }
+.tool-input { flex: 1; min-width: 240px; padding: 0.85rem 1rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.95rem; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); border-radius: 0; }
+.tool-input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+.tool-btn { padding: 0.85rem 1.6rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; background: var(--ink); color: var(--paper); border: none; cursor: pointer; border-radius: 0; transition: background 0.2s ease; }
+.tool-btn:hover { background: var(--accent); }
+.tool-btn:disabled { opacity: 0.5; cursor: wait; }
+.tool-result { min-height: 4rem; }
+
+/* Result rendering — shared by correo & sitio */
+.result-summary { padding: 1.3rem; border: 1px solid var(--rule); background: rgba(178,36,31,0.03); margin-bottom: 1.5rem; font-family: 'Playfair Display', serif; font-size: 1.15rem; line-height: 1.4; }
+.result-summary.fail { border-color: var(--accent); }
+.result-meta { font-family: 'IBM Plex Mono', monospace; font-size: 0.76rem; color: var(--ink-muted); margin-bottom: 1rem; }
+.result-section { border-top: 2px solid var(--ink); padding-top: 1rem; }
+.result-section-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 1rem; }
+.result-check { display: grid; grid-template-columns: 24px 130px 1fr; gap: 0.8rem; padding: 0.7rem 0; border-bottom: 1px solid var(--rule-soft); align-items: start; }
+.result-check .mark { font-weight: 700; font-size: 1rem; }
+.result-check .mark.ok { color: var(--ink); }
+.result-check .mark.fail { color: var(--accent); }
+.result-check .mark.unknown { color: var(--ink-muted); }
+.result-check .label { font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-muted); }
+.result-check .detail { font-size: 0.88rem; color: var(--ink-dim); line-height: 1.45; }
+.result-cta { margin-top: 2rem; padding: 1.2rem; border: 1px dashed var(--rule-soft); font-size: 0.9rem; color: var(--ink-dim); line-height: 1.5; }
+.result-cta a { color: var(--accent); }
+.result-error { padding: 1rem; border: 1px solid var(--accent); color: var(--accent); font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; }
+
+/* Chat interface — consultoría express */
+.chat-log { border: 1px solid var(--rule-soft); padding: 1.5rem; margin-bottom: 1.5rem; min-height: 240px; max-height: 520px; overflow-y: auto; }
+.chat-msg { margin-bottom: 1rem; line-height: 1.5; }
+.chat-msg:last-child { margin-bottom: 0; }
+.chat-bot { font-family: 'IBM Plex Mono', monospace; font-size: 0.88rem; color: var(--ink); padding-left: 1rem; border-left: 2px solid var(--accent); }
+.chat-user { font-size: 0.92rem; color: var(--ink-dim); padding-left: 1rem; border-left: 2px solid var(--rule-soft); }
+.chat-report { font-size: 0.92rem; color: var(--ink); line-height: 1.65; padding: 1.5rem; border: 1px solid var(--rule); background: rgba(178,36,31,0.02); }
+.chat-report strong { font-family: 'IBM Plex Mono', monospace; font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); display: block; margin-top: 1.2rem; margin-bottom: 0.4rem; }
+.chat-report strong:first-child { margin-top: 0; }
+.chat-typing { color: var(--ink-muted); font-style: italic; }
+.chat-form { display: flex; gap: 0.6rem; }
+.chat-input { flex: 1; min-width: 200px; padding: 0.85rem 1rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.95rem; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); border-radius: 0; }
+.chat-input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+.chat-cta { margin-top: 2rem; padding: 1.2rem; border: 1px dashed var(--rule-soft); font-size: 0.9rem; color: var(--ink-dim); line-height: 1.5; }
+.chat-cta a { color: var(--accent); }
+.chat-restart { display: inline-block; margin-top: 1rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-muted); text-decoration: none; border-bottom: 1px solid var(--rule-soft); padding-bottom: 2px; }
+.chat-restart:hover { color: var(--accent); border-color: var(--accent); }
 
 /* Responsive — collapse grid on mobile */
 @media (max-width: 860px) {
@@ -142,6 +191,9 @@ a:focus-visible, .work-row:focus-visible, .tool-box:focus-visible { outline: 2px
   .gutter, .gutter-l { padding-right: 0; padding-left: 0; }
   .mast-nav { gap: 1rem; flex-wrap: wrap; }
   .hero-meta { gap: 1rem; }
+  .result-check { grid-template-columns: 24px 1fr; }
+  .result-check .label { grid-column: 2; }
+  .result-check .detail { grid-column: 2; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-kicker .dot { animation: none !important; }

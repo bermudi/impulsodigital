@@ -1,18 +1,48 @@
 // ============================================================
-// /api/ia — Descripciones de producto con IA
-// Calls OpenRouter chat completions (server-side, key in env).
-// Generates Spanish marketing copy from product name + spec.
+// /api/ia — Consultoría express (diagnostic interview bot)
+// Multi-turn conversation via Poe's OpenAI-compatible API.
+// The client sends the full message history + turn count;
+// the system prompt decides whether to ask the next question
+// or produce the final diagnostic report.
 // ============================================================
 
-const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
-// Free text model on OpenRouter — good Spanish, no cost.
-// Swappable to any model via the OPENROUTER_MODEL env var.
-const DEFAULT_MODEL = 'meta-llama/llama-3.3-70b-instruct:free';
+const POE_URL = 'https://api.poe.com/v1/chat/completions';
+const DEFAULT_MODEL = 'Claude-Sonnet-4.6';
+const MAX_TURNS = 4; // after this many user answers, generate the report
+
+const SYSTEM_PROMPT = `Eres un consultor de negocios digitales en México. Estás entrevistando a un dueño de pequeño negocio para diagnosticar su presencia online.
+
+REGLAS:
+- Haz UNA sola pregunta por respuesta. Nunca dos a la vez.
+- Sé directo y específico, como un consultor real que cobra por su tiempo.
+- No uses lenguaje de marketing. No felicites. No digas "excelente", "qué bueno", "interesante".
+- Si una respuesta es vaga, pide específicos en la siguiente pregunta.
+- Cubre estos temas en orden: qué vende, a quién le vende, cómo encuentra clientes hoy, qué tiene online y qué le funciona.
+- Tus preguntas deben ser cortas — una o dos líneas máximo.
+
+Cuando el usuario haya respondido suficientes preguntas, generas un informe diagnóstico con EXACTAMENTE este formato:
+
+**Diagnóstico**
+[2-3 oraciones resumiendo la situación del negocio]
+
+**Funciona**
+- [un punto concreto que está bien]
+
+**Falta**
+- [un punto concreto que falta]
+- [otro punto concreto que falta]
+
+**Próximos pasos**
+1. [acción concreta y específica, ejecutable esta semana]
+2. [acción concreta y específica]
+3. [acción concreta y específica]
+
+No agregues nada después de los próximos pasos. No vendes. No invites a contactar. No digas "espero que te sirva".`;
 
 export async function onRequestPost({ request, env }) {
-  const apiKey = env && env.OPENROUTER_API_KEY;
+  const apiKey = env && env.POE_API_KEY;
   if (!apiKey) {
-    return json({ error: 'El demo de IA no está configurado todavía. Vuelve pronto.' }, 503);
+    return json({ error: 'El demo no está configurado todavía. Vuelve pronto.' }, 503);
   }
 
   let body;
@@ -22,53 +52,43 @@ export async function onRequestPost({ request, env }) {
     return json({ error: 'JSON inválido' }, 400);
   }
 
-  const product = (body.product || '').trim();
-  const spec = (body.spec || '').trim();
-  const tone = (body.tone || 'cercano').trim();
+  const messages = body.messages || [];
+  const turn = Math.min(body.turn || 0, MAX_TURNS);
 
-  if (!product) return json({ error: 'Falta el nombre del producto' }, 400);
-  if (product.length > 100) return json({ error: 'Nombre demasiado largo (máx 100 caracteres)' }, 400);
-  if (spec.length > 300) return json({ error: 'Especificación demasiado larga (máx 300 caracteres)' }, 400);
+  if (!Array.isArray(messages) || messages.length === 0) {
+    return json({ error: 'Falta el historial de conversación' }, 400);
+  }
 
-  const model = (env && env.OPENROUTER_MODEL) || DEFAULT_MODEL;
+  // Validate message lengths to prevent abuse
+  for (const m of messages) {
+    if (typeof m.content !== 'string' || m.content.length > 1000) {
+      return json({ error: 'Mensaje demasiado largo' }, 400);
+    }
+  }
 
-  const systemPrompt = `Eres un copywriter mexicano que escribe descripciones de producto para tiendas online y redes sociales. Escribe en español de México, cercano y directo, sin clichés de marketing. No inventes características que no te dieron. Eres bueno escribiendo para WhatsApp e Instagram.`;
+  const model = (env && env.POE_MODEL) || DEFAULT_MODEL;
+  const isReportTurn = turn >= MAX_TURNS;
 
-  const userPrompt = `Escribe 3 descripciones de producto diferentes para este producto:
-
-PRODUCTO: ${product}
-${spec ? `DETALLE: ${spec}` : '(sin detalle adicional)'}
-TONO: ${tone}
-
-Formato:
-**Opción 1 — corta (para WhatsApp):**
-[1-2 oraciones, máximo 200 caracteres]
-
-**Opción 2 — mediana (para Instagram):**
-[3-4 oraciones, con emojis sutiles si aplican]
-
-**Opción 3 — larga (para ficha de producto web):**
-[párrafo de 4-6 oraciones, más descriptiva]
-
-No uses hashtags. No inventes precios. No inventes características. Si el detalle está vacío, enfócate en el nombre del producto.`;
+  const systemPrompt = SYSTEM_PROMPT + '\n\n' +
+    (isReportTurn
+      ? `El usuario ya respondió ${turn} preguntas. Genera el informe diagnóstico AHORA con el formato indicado.`
+      : `Vas por la respuesta ${turn} de ${MAX_TURNS}. Haz la siguiente pregunta.`);
 
   try {
-    const res = await fetch(OPENROUTER_URL, {
+    const res = await fetch(POE_URL, {
       method: 'POST',
       headers: {
         'authorization': `Bearer ${apiKey}`,
         'content-type': 'application/json',
-        'HTTP-Referer': 'https://impuslodigital.com',
-        'X-Title': 'Impulso Digital — Demo IA',
       },
       body: JSON.stringify({
         model,
         messages: [
           { role: 'system', content: systemPrompt },
-          { role: 'user', content: userPrompt },
+          ...messages,
         ],
-        temperature: 0.8,
-        max_tokens: 700,
+        temperature: 0.7,
+        max_tokens: isReportTurn ? 800 : 200,
       }),
     });
 
@@ -85,9 +105,9 @@ No uses hashtags. No inventes precios. No inventes características. Si el detal
     }
 
     return json({
-      product,
+      text: text.trim(),
       model: data.model || model,
-      copy: text.trim(),
+      done: isReportTurn,
     });
   } catch (err) {
     return json({ error: 'No pude contactar el modelo. Intenta de nuevo.', detail: String(err.message).slice(0, 200) }, 502);
