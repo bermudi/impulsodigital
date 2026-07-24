@@ -7,7 +7,7 @@
 // ============================================================
 
 const POE_URL = 'https://api.poe.com/v1/chat/completions';
-const DEFAULT_MODEL = 'Claude-Sonnet-4.6';
+const DEFAULT_MODEL = 'Hy3-N';
 const MAX_TURNS = 4; // after this many user answers, generate the report
 
 const SYSTEM_PROMPT = `Eres un consultor de negocios digitales en México. Estás entrevistando a un dueño de pequeño negocio para diagnosticar su presencia online.
