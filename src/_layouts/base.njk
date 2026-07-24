@@ -5,12 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
     <meta name="description" content="{{ description }}">
+    {% set canonicalPath = permalink or "/" %}
+    {% set canonicalPath = canonicalPath | replace("/index.html", "/") %}
+    {% set canonicalUrl = "https://impulsodigital.com" + canonicalPath %}
 
     <!-- Open Graph -->
     <meta property="og:title" content="{{ title }}">
     <meta property="og:description" content="{{ description }}">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://impuslodigital.com">
+    <meta property="og:url" content="{{ canonicalUrl }}">
+    <meta property="og:image" content="https://impulsodigital.com/assets/img/proof-sud-american.webp">
+    <meta property="og:site_name" content="Impulso Digital">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="canonical" href="{{ canonicalUrl }}">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

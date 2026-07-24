@@ -11,6 +11,7 @@
 :root {
   --bg: #f5f1e8;
   --bg-2: #efe9dc;
+  --cube-face: #e2d6c2;
   --ink: #1a1410;
   --ink-dim: #5a4f44;
   --ink-muted: #948779;
@@ -86,6 +87,7 @@ a { color: inherit; }
   backface-visibility: hidden;
   display: flex; align-items: center; justify-content: center;
   padding: 1.5rem;
+  border: 1px solid rgba(184, 66, 31, 0.22);
 }
 
 /* F0 IMPULSO — full terracotta brand poster */
@@ -98,7 +100,7 @@ a { color: inherit; }
 }
 
 /* F1 SERVICIOS / F4 PRUÉBALO — icon grids on cream */
-.face-services, .face-try { background: var(--bg-2); }
+.face-services, .face-try { background: var(--cube-face); }
 .face-icons {
   display: flex; gap: 1.4rem; align-items: center; justify-content: center;
 }
@@ -127,7 +129,7 @@ a { color: inherit; }
 }
 
 /* F3 EN VIVO — browser frames with real screenshots */
-.face-proof { background: var(--bg-2); flex-direction: column; gap: 0.5rem; padding: 1rem; }
+.face-proof { background: var(--cube-face); flex-direction: column; gap: 0.5rem; padding: 1rem; }
 .face-screens { display: flex; flex-direction: column; gap: 0.5rem; width: 100%; }
 .browser-frame {
   border: 1px solid rgba(184,66,31,0.22); background: #fff; overflow: hidden;

@@ -103,6 +103,7 @@
   }
 
   // ---------- Cube transform ----------
+  let lastTransform = "";
   function setCubeTransform(s) {
     if (N < 2) return;
     const t = s * (N - 1);
@@ -112,7 +113,11 @@
     const b = STOPS[i + 1];
     const rx = a.rx + (b.rx - a.rx) * f;
     const ry = a.ry + (b.ry - a.ry) * f;
-    if (dom.cube) dom.cube.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+    const transform = `rotateX(${rx.toFixed(4)}deg) rotateY(${ry.toFixed(4)}deg)`;
+    if (dom.cube && transform !== lastTransform) {
+      lastTransform = transform;
+      dom.cube.style.transform = transform;
+    }
   }
 
   // ---------- Section index from scroll ----------
